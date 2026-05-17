@@ -7,224 +7,54 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #F7F5F0;
-    --surface: #FFFFFF;
-    --border: #E4E0D8;
-    --text: #1A1814;
-    --muted: #8A857C;
-    --accent: #2D6A4F;
-    --danger: #C0392B;
-    --done-text: #B0AA9F;
+    --bg: #F7F5F0; --surface: #FFFFFF; --border: #E4E0D8;
+    --text: #1A1814; --muted: #8A857C; --accent: #2D6A4F;
+    --danger: #C0392B; --done-text: #B0AA9F;
   }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 48px 20px 80px;
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 48px 20px 80px; }
   .container { max-width: 600px; margin: 0 auto; }
-
   header { margin-bottom: 40px; }
-
-  .title {
-    font-family: 'Lora', serif;
-    font-size: 36px;
-    font-weight: 400;
-    letter-spacing: -0.5px;
-    color: var(--text);
-  }
-
-  .status-label {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #ccc;
-    transition: background 0.3s;
-    flex-shrink: 0;
-  }
+  .title { font-family: 'Lora', serif; font-size: 36px; font-weight: 400; letter-spacing: -0.5px; }
+  .status-label { font-size: 12px; color: var(--muted); margin-top: 8px; display: flex; align-items: center; gap: 6px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; transition: background 0.3s; flex-shrink: 0; }
   .status-dot.connected { background: var(--accent); }
   .status-dot.error { background: var(--danger); }
-
-  .subtitle {
-    font-size: 14px;
-    color: var(--muted);
-    margin-top: 10px;
-    font-weight: 300;
-  }
-
-  .progress-bar-wrap {
-    margin-top: 14px;
-    background: var(--border);
-    border-radius: 99px;
-    height: 4px;
-    overflow: hidden;
-  }
-
-  .progress-bar {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 99px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
-
-  .add-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-
-  .add-row input {
-    flex: 1;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 15px;
-    font-family: 'DM Sans', sans-serif;
-    background: var(--surface);
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
+  .subtitle { font-size: 14px; color: var(--muted); margin-top: 10px; font-weight: 300; }
+  .progress-bar-wrap { margin-top: 14px; background: var(--border); border-radius: 99px; height: 4px; overflow: hidden; }
+  .progress-bar { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.4s ease; width: 0%; }
+  .notif-banner { background: var(--accent-light, #d8ede3); border: 1px solid var(--accent); border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 14px; color: var(--accent); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .notif-banner button { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 6px 14px; font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+  .add-row { display: flex; gap: 10px; margin-bottom: 28px; }
+  .add-row input { flex: 1; border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; font-size: 15px; font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--text); outline: none; transition: border-color 0.2s; }
   .add-row input:focus { border-color: var(--accent); }
   .add-row input::placeholder { color: var(--muted); }
-
-  .add-row button {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 20px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
+  .add-row button { background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-size: 20px; cursor: pointer; transition: opacity 0.15s; }
   .add-row button:hover { opacity: 0.85; }
   .add-row button:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    padding-left: 2px;
-  }
-
-  .task-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 32px;
-  }
-
-  .task-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    animation: slideIn 0.2s ease;
-    transition: border-color 0.2s, opacity 0.2s;
-  }
-
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; padding-left: 2px; }
+  .task-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+  .task-item { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; animation: slideIn 0.2s ease; transition: border-color 0.2s, opacity 0.2s; }
   .task-item:hover { border-color: #C8C3BA; }
   .task-item.done { opacity: 0.55; }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .check-btn {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.2s, border-color 0.2s;
-  }
-
+  @keyframes slideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+  .check-btn { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, border-color 0.2s; }
   .check-btn.checked { background: var(--accent); border-color: var(--accent); }
   .check-btn svg { display: none; }
   .check-btn.checked svg { display: block; }
-
-  .task-text {
-    flex: 1;
-    font-size: 15px;
-    color: var(--text);
-    line-height: 1.4;
-  }
-
-  .task-item.done .task-text {
-    text-decoration: line-through;
-    color: var(--done-text);
-  }
-
-  .del-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--muted);
-    font-size: 18px;
-    padding: 2px 4px;
-    border-radius: 6px;
-    opacity: 0;
-    transition: opacity 0.15s, color 0.15s;
-  }
-
+  .task-text { flex: 1; font-size: 15px; color: var(--text); line-height: 1.4; }
+  .task-item.done .task-text { text-decoration: line-through; color: var(--done-text); }
+  .del-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 18px; padding: 2px 4px; border-radius: 6px; opacity: 0; transition: opacity 0.15s, color 0.15s; }
   .task-item:hover .del-btn { opacity: 1; }
   .del-btn:hover { color: var(--danger); }
-
-  .empty-state {
-    text-align: center;
-    padding: 48px 20px;
-    color: var(--muted);
-    font-size: 15px;
-    font-weight: 300;
-  }
-
+  .empty-state { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 15px; font-weight: 300; }
   .footer-actions { display: flex; justify-content: flex-end; }
-
-  .clear-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 13px;
-    color: var(--muted);
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: color 0.15s, border-color 0.15s;
-  }
-
+  .clear-btn { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; font-size: 13px; color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: color 0.15s, border-color 0.15s; }
   .clear-btn:hover { color: var(--danger); border-color: var(--danger); }
 </style>
 </head>
 <body>
 <div class="container">
-
   <header>
     <div class="title">🏡 Our Home</div>
     <div class="status-label">
@@ -232,10 +62,13 @@
       <span id="statusText">Connecting…</span>
     </div>
     <div class="subtitle" id="subtitle"> </div>
-    <div class="progress-bar-wrap">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
   </header>
+
+  <div id="notifBanner" class="notif-banner" style="display:none;">
+    🔔 Enable notifications to know when a task is added!
+    <button onclick="enableNotifications()">Enable</button>
+  </div>
 
   <div class="add-row">
     <input type="text" id="taskInput" placeholder="Add a new task…" />
@@ -250,14 +83,15 @@
   <div id="doneSection" style="display:none;">
     <div class="section-label">Done</div>
     <div class="task-list" id="doneList"></div>
-    <div class="footer-actions">
-      <button class="clear-btn" onclick="clearDone()">Clear completed</button>
-    </div>
+    <div class="footer-actions"><button class="clear-btn" onclick="clearDone()">Clear completed</button></div>
   </div>
-
 </div>
 
-<script>
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js';
+
+  const VAPID_KEY = 'BNkNLj9DWkCQIdfeSpKQ6hvYon8WZtWrXtcjLc1oDo-Xws5BSO3LTHh_P3n8AO1rq9YY4pNv3QDopKvmG_T-hhA';
   const SUPABASE_URL = 'https://ynkjrhqozilkodbqbovc.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_Po4L9daBr7lPd0OcsOoHhA_saw1NvVH';
   const HEADERS = {
@@ -267,13 +101,84 @@
     'Prefer': 'return=representation'
   };
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyDHHu8YMr-pbtKiDC-Jmeif6gRZMNqF9Hc",
+    authDomain: "home-tasks-dd55b.firebaseapp.com",
+    projectId: "home-tasks-dd55b",
+    storageBucket: "home-tasks-dd55b.firebasestorage.app",
+    messagingSenderId: "973414286380",
+    appId: "1:973414286380:web:12ad64d2e3134a3e443d89"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
+
   let tasks = [];
+  let fcmToken = null;
+
+  // Store FCM token in Supabase
+  async function saveFcmToken(token) {
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`, {
+        method: 'POST',
+        headers: { ...HEADERS, 'Prefer': 'resolution=merge-duplicates' },
+        body: JSON.stringify({ token })
+      });
+    } catch(e) {}
+  }
+
+  // Send notification to all other tokens via Supabase edge function (or we store & notify)
+  async function notifyOthers(taskText) {
+    try {
+      // Get all tokens except ours
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens${fcmToken ? `?token=neq.${encodeURIComponent(fcmToken)}` : ''}`, { headers: HEADERS });
+      const tokens = await res.json();
+      if (!tokens.length) return;
+      // Call our notification endpoint
+      await fetch(`${SUPABASE_URL}/functions/v1/notify`, {
+        method: 'POST',
+        headers: { ...HEADERS, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tokens: tokens.map(t => t.token), taskText })
+      });
+    } catch(e) {}
+  }
+
+  async function enableNotifications() {
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') return;
+      await navigator.serviceWorker.register('/home-tasks/firebase-messaging-sw.js');
+      const token = await getToken(messaging, { vapidKey: VAPID_KEY });
+      if (token) {
+        fcmToken = token;
+        await saveFcmToken(token);
+        document.getElementById('notifBanner').style.display = 'none';
+        showToast('🔔 Notifications enabled!');
+      }
+    } catch(e) {
+      showToast('Could not enable notifications');
+    }
+  }
+
+  window.enableNotifications = enableNotifications;
+
+  // Show in-app toast for foreground messages
+  onMessage(messaging, (payload) => {
+    showToast(payload.notification?.body || 'New task added!');
+  });
+
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A1814;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:999;animation:slideIn 0.3s ease;pointer-events:none;';
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+  }
 
   function setStatus(state) {
-    const dot = document.getElementById('statusDot');
-    const txt = document.getElementById('statusText');
-    dot.className = 'status-dot ' + state;
-    txt.textContent = state === 'connected' ? 'Synced ✓' : state === 'error' ? 'Connection error — retrying…' : 'Connecting…';
+    document.getElementById('statusDot').className = 'status-dot ' + state;
+    document.getElementById('statusText').textContent =
+      state === 'connected' ? 'Synced ✓' : state === 'error' ? 'Connection error — retrying…' : 'Connecting…';
   }
 
   async function fetchTasks() {
@@ -283,12 +188,10 @@
       tasks = await res.json();
       setStatus('connected');
       render();
-    } catch(e) {
-      setStatus('error');
-    }
+    } catch(e) { setStatus('error'); }
   }
 
-  async function addTask() {
+  window.addTask = async function() {
     const input = document.getElementById('taskInput');
     const text = input.value.trim();
     if (!text) return;
@@ -296,70 +199,56 @@
     document.getElementById('addBtn').disabled = true;
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/tasks`, {
-        method: 'POST',
-        headers: HEADERS,
-        body: JSON.stringify({ text, done: false })
+        method: 'POST', headers: HEADERS, body: JSON.stringify({ text, done: false })
       });
       if (!res.ok) throw new Error();
+      await notifyOthers(text);
       await fetchTasks();
     } catch(e) { setStatus('error'); }
     document.getElementById('addBtn').disabled = false;
-  }
+  };
 
-  async function toggle(id, currentDone) {
+  window.toggle = async function(id, currentDone) {
     try {
       await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, {
-        method: 'PATCH',
-        headers: HEADERS,
-        body: JSON.stringify({ done: !currentDone })
+        method: 'PATCH', headers: HEADERS, body: JSON.stringify({ done: !currentDone })
       });
       await fetchTasks();
     } catch(e) { setStatus('error'); }
-  }
+  };
 
-  async function deleteTask(id) {
+  window.deleteTask = async function(id) {
     try {
-      await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, {
-        method: 'DELETE',
-        headers: HEADERS
-      });
+      await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, { method: 'DELETE', headers: HEADERS });
       await fetchTasks();
     } catch(e) { setStatus('error'); }
-  }
+  };
 
-  async function clearDone() {
-    const doneIds = tasks.filter(t => t.done).map(t => t.id);
-    if (!doneIds.length) return;
+  window.clearDone = async function() {
+    const ids = tasks.filter(t => t.done).map(t => t.id);
+    if (!ids.length) return;
     try {
-      await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=in.(${doneIds.join(',')})`, {
-        method: 'DELETE',
-        headers: HEADERS
-      });
+      await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=in.(${ids.join(',')})`, { method: 'DELETE', headers: HEADERS });
       await fetchTasks();
     } catch(e) { setStatus('error'); }
-  }
+  };
 
   function render() {
     const pending = tasks.filter(t => !t.done);
     const done = tasks.filter(t => t.done);
-    const total = tasks.length;
-    const doneCount = done.length;
-
-    document.getElementById('progressBar').style.width = total ? Math.round((doneCount / total) * 100) + '%' : '0%';
+    const total = tasks.length, doneCount = done.length;
+    document.getElementById('progressBar').style.width = total ? Math.round((doneCount/total)*100)+'%' : '0%';
     document.getElementById('subtitle').textContent =
       total === 0 ? 'No tasks yet — add one above!' :
       doneCount === total ? '🎉 All done — great teamwork!' :
       `${doneCount} of ${total} tasks done`;
-
     renderList('pendingList', pending);
     renderList('doneList', done);
     document.getElementById('doneSection').style.display = done.length ? 'block' : 'none';
-
-    if (pending.length === 0) {
+    if (!pending.length) {
       document.getElementById('pendingList').innerHTML =
-        total === 0
-          ? '<div class="empty-state">Nothing here yet. Add your first task!</div>'
-          : '<div class="empty-state">✅ All tasks are done!</div>';
+        total === 0 ? '<div class="empty-state">Nothing here yet. Add your first task!</div>'
+                    : '<div class="empty-state">✅ All tasks are done!</div>';
     }
   }
 
@@ -377,19 +266,19 @@
           </svg>
         </button>
         <span class="task-text">${escapeHtml(task.text)}</span>
-        <button class="del-btn" onclick="deleteTask(${task.id})">×</button>
-      `;
+        <button class="del-btn" onclick="deleteTask(${task.id})">×</button>`;
       list.appendChild(item);
     });
   }
 
-  function escapeHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
+  function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  document.getElementById('taskInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addTask();
-  });
+  document.getElementById('taskInput').addEventListener('keydown', e => { if (e.key==='Enter') window.addTask(); });
+
+  // Show notification banner if not yet granted
+  if (Notification.permission === 'default') {
+    document.getElementById('notifBanner').style.display = 'flex';
+  }
 
   fetchTasks();
   setInterval(fetchTasks, 5000);
