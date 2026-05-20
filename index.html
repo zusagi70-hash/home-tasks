@@ -1,77 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Our Home Tasks</title>
+<title>Our Home</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "6bb339f5-d3c2-46ed-bfe5-a0f7a1575210",
+      notifyButton: { enable: false },
+      allowLocalhostAsSecureOrigin: true,
+    });
+  });
+</script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #F7F5F0; --surface: #FFFFFF; --border: #E4E0D8;
-    --text: #1A1814; --muted: #8A857C; --accent: #2D6A4F;
-    --danger: #C0392B; --done-text: #B0AA9F;
-  }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 48px 20px 80px; }
-  .container { max-width: 600px; margin: 0 auto; }
-  header { margin-bottom: 40px; }
-  .title { font-family: 'Lora', serif; font-size: 36px; font-weight: 400; letter-spacing: -0.5px; }
-  .status-label { font-size: 12px; color: var(--muted); margin-top: 8px; display: flex; align-items: center; gap: 6px; }
-  .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; transition: background 0.3s; flex-shrink: 0; }
-  .status-dot.connected { background: var(--accent); }
-  .status-dot.error { background: var(--danger); }
-  .subtitle { font-size: 14px; color: var(--muted); margin-top: 10px; font-weight: 300; }
-  .progress-bar-wrap { margin-top: 14px; background: var(--border); border-radius: 99px; height: 4px; overflow: hidden; }
-  .progress-bar { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.4s ease; width: 0%; }
-  .notif-banner { background: var(--accent-light, #d8ede3); border: 1px solid var(--accent); border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 14px; color: var(--accent); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .notif-banner button { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 6px 14px; font-size: 13px; cursor: pointer; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
-  .add-row { display: flex; gap: 10px; margin-bottom: 28px; }
-  .add-row input { flex: 1; border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; font-size: 15px; font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--text); outline: none; transition: border-color 0.2s; }
-  .add-row input:focus { border-color: var(--accent); }
-  .add-row input::placeholder { color: var(--muted); }
-  .add-row button { background: var(--accent); color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-size: 20px; cursor: pointer; transition: opacity 0.15s; }
-  .add-row button:hover { opacity: 0.85; }
-  .add-row button:disabled { opacity: 0.4; cursor: not-allowed; }
-  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; padding-left: 2px; }
-  .task-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-  .task-item { display: flex; align-items: center; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; animation: slideIn 0.2s ease; transition: border-color 0.2s, opacity 0.2s; }
-  .task-item:hover { border-color: #C8C3BA; }
-  .task-item.done { opacity: 0.55; }
-  @keyframes slideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-  .check-btn { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, border-color 0.2s; }
-  .check-btn.checked { background: var(--accent); border-color: var(--accent); }
-  .check-btn svg { display: none; }
-  .check-btn.checked svg { display: block; }
-  .task-text { flex: 1; font-size: 15px; color: var(--text); line-height: 1.4; }
-  .task-item.done .task-text { text-decoration: line-through; color: var(--done-text); }
-  .del-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 18px; padding: 2px 4px; border-radius: 6px; opacity: 0; transition: opacity 0.15s, color 0.15s; }
-  .task-item:hover .del-btn { opacity: 1; }
-  .del-btn:hover { color: var(--danger); }
-  .empty-state { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 15px; font-weight: 300; }
-  .footer-actions { display: flex; justify-content: flex-end; }
-  .clear-btn { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; font-size: 13px; color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: color 0.15s, border-color 0.15s; }
-  .clear-btn:hover { color: var(--danger); border-color: var(--danger); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#F7F5F0;
+  --surface:#FFFFFF;
+  --border:#E4E0D8;
+  --text:#1A1814;
+  --muted:#8A857C;
+  --accent:#2D6A4F;
+  --accent-light:#D8EDE3;
+  --danger:#C0392B;
+  --done-text:#B0AA9F;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:40px 20px 80px;transition:background 0.4s ease;}
+.container{max-width:620px;margin:0 auto;}
+
+/* HEADER */
+.header-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;}
+.title{font-family:'Lora',serif;font-size:34px;font-weight:400;letter-spacing:-0.5px;}
+.header-actions{display:flex;gap:8px;align-items:center;margin-top:6px;}
+.icon-btn{background:var(--surface);border:1px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:border-color 0.2s;}
+.icon-btn:hover{border-color:var(--accent);}
+.status-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#ccc;transition:background 0.3s;}
+.status-dot.connected{background:var(--accent);}
+.status-dot.error{background:var(--danger);}
+.status-text{font-size:12px;color:var(--muted);}
+.subtitle{font-size:14px;color:var(--muted);font-weight:300;margin-bottom:10px;}
+.progress-wrap{background:var(--border);border-radius:99px;height:4px;overflow:hidden;margin-bottom:28px;}
+.progress-bar{height:100%;background:var(--accent);border-radius:99px;transition:width 0.4s ease;width:0%;}
+
+/* COLOR PICKER PANEL */
+.color-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:20px;display:none;}
+.color-panel.open{display:block;}
+.color-panel-title{font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.color-swatches{display:flex;flex-wrap:wrap;gap:10px;}
+.swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:transform 0.15s,border-color 0.15s;}
+.swatch:hover{transform:scale(1.15);}
+.swatch.active{border-color:var(--text);}
+
+/* NAME SETUP */
+.name-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:24px;}
+.name-panel h3{font-size:15px;font-weight:500;margin-bottom:12px;}
+.name-row{display:flex;gap:10px;}
+.name-row input{flex:1;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:15px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.2s;}
+.name-row input:focus{border-color:var(--accent);}
+.name-row button{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+
+/* NOTIF BANNER */
+.notif-banner{background:var(--accent-light);border:1px solid var(--accent);border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:var(--accent);display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.notif-banner button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+
+/* ADD ROW */
+.add-row{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap;}
+.add-row input.task-input{flex:1;min-width:160px;border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:15px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);outline:none;transition:border-color 0.2s;}
+.add-row input.task-input:focus{border-color:var(--accent);}
+.add-row input::placeholder{color:var(--muted);}
+.tag-select{border:1px solid var(--border);border-radius:10px;padding:12px 12px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--surface);color:var(--text);outline:none;cursor:pointer;}
+.add-row button{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:20px;cursor:pointer;transition:opacity 0.15s;}
+.add-row button:hover{opacity:0.85;}
+.add-row button:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* SECTIONS */
+.section-label{font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-left:2px;}
+.task-list{display:flex;flex-direction:column;gap:8px;margin-bottom:32px;}
+
+/* TASK ITEM */
+.task-item{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;animation:slideIn 0.2s ease;transition:border-color 0.2s,opacity 0.2s;}
+.task-item:hover{border-color:#C8C3BA;}
+.task-item.done{opacity:0.5;}
+@keyframes slideIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.check-btn{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s,border-color 0.2s;}
+.check-btn.checked{background:var(--accent);border-color:var(--accent);}
+.check-btn svg{display:none;}
+.check-btn.checked svg{display:block;}
+.task-body{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0;}
+.task-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.task-author{font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-light);padding:2px 8px;border-radius:99px;}
+.task-tag{font-size:11px;color:var(--muted);background:var(--border);padding:2px 8px;border-radius:99px;}
+.task-text{font-size:15px;color:var(--text);line-height:1.4;}
+.task-item.done .task-text{text-decoration:line-through;color:var(--done-text);}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:2px 4px;border-radius:6px;opacity:0;transition:opacity 0.15s,color 0.15s;flex-shrink:0;}
+.task-item:hover .del-btn{opacity:1;}
+.del-btn:hover{color:var(--danger);}
+
+/* EMPTY / FOOTER */
+.empty-state{text-align:center;padding:40px 20px;color:var(--muted);font-size:15px;font-weight:300;}
+.footer-actions{display:flex;justify-content:flex-end;}
+.clear-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:13px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:color 0.15s,border-color 0.15s;}
+.clear-btn:hover{color:var(--danger);border-color:var(--danger);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A1814;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:999;pointer-events:none;animation:slideIn 0.3s ease;}
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
-    <div class="title">🏡 Our Home</div>
-    <div class="status-label">
-      <span class="status-dot" id="statusDot"></span>
-      <span id="statusText">Connecting…</span>
-    </div>
-    <div class="subtitle" id="subtitle"> </div>
-    <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
-  </header>
 
-  <div id="notifBanner" class="notif-banner" style="display:none;">
-    🔔 Enable notifications to know when a task is added!
+  <div class="header-row">
+    <div class="title">🏡 Our Home</div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleColorPanel()" title="Change background color">🎨</button>
+      <button class="icon-btn" onclick="toggleNamePanel()" title="Settings">⚙️</button>
+    </div>
+  </div>
+
+  <div class="status-row">
+    <span class="status-dot" id="statusDot"></span>
+    <span class="status-text" id="statusText">Connecting…</span>
+  </div>
+  <div class="subtitle" id="subtitle"> </div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+  <!-- Color Panel -->
+  <div class="color-panel" id="colorPanel">
+    <div class="color-panel-title">🎨 Your background color</div>
+    <div class="color-swatches" id="swatches"></div>
+  </div>
+
+  <!-- Name Panel -->
+  <div class="name-panel" id="namePanel" style="display:none;">
+    <h3>👤 What's your name?</h3>
+    <div class="name-row">
+      <input type="text" id="nameInput" placeholder="e.g. Sagi or Honey 😊" maxlength="20"/>
+      <button onclick="saveName()">Save</button>
+    </div>
+  </div>
+
+  <!-- Notification Banner -->
+  <div class="notif-banner" id="notifBanner" style="display:none;">
+    🔔 Get notified when a task is added!
     <button onclick="enableNotifications()">Enable</button>
   </div>
 
+  <!-- Add Task -->
   <div class="add-row">
-    <input type="text" id="taskInput" placeholder="Add a new task…" />
+    <input type="text" class="task-input" id="taskInput" placeholder="Add a new task…"/>
+    <select class="tag-select" id="tagSelect">
+      <option value="">No tag</option>
+    </select>
     <button id="addBtn" onclick="addTask()">+</button>
   </div>
 
@@ -85,203 +169,275 @@
     <div class="task-list" id="doneList"></div>
     <div class="footer-actions"><button class="clear-btn" onclick="clearDone()">Clear completed</button></div>
   </div>
+
 </div>
 
-<script type="module">
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-  import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js';
+<script>
+const SUPABASE_URL = 'https://ynkjrhqozilkodbqbovc.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_Po4L9daBr7lPd0OcsOoHhA_saw1NvVH';
+const HEADERS = {
+  'Content-Type':'application/json',
+  'apikey':SUPABASE_KEY,
+  'Authorization':'Bearer '+SUPABASE_KEY,
+  'Prefer':'return=representation'
+};
 
-  const VAPID_KEY = 'BNkNLj9DWkCQIdfeSpKQ6hvYon8WZtWrXtcjLc1oDo-Xws5BSO3LTHh_P3n8AO1rq9YY4pNv3QDopKvmG_T-hhA';
-  const SUPABASE_URL = 'https://ynkjrhqozilkodbqbovc.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_Po4L9daBr7lPd0OcsOoHhA_saw1NvVH';
-  const HEADERS = {
-    'Content-Type': 'application/json',
-    'apikey': SUPABASE_KEY,
-    'Authorization': 'Bearer ' + SUPABASE_KEY,
-    'Prefer': 'return=representation'
-  };
+const COLORS = [
+  {name:'Warm Cream',bg:'#F7F5F0',surface:'#FFFFFF',text:'#1A1814'},
+  {name:'Sage Green',bg:'#EDF2EE',surface:'#FFFFFF',text:'#1A2B1E'},
+  {name:'Dusty Rose',bg:'#F5EFEF',surface:'#FFFFFF',text:'#2B1A1A'},
+  {name:'Sky Blue',bg:'#EFF3F7',surface:'#FFFFFF',text:'#1A2030'},
+  {name:'Lavender',bg:'#F2EFF7',surface:'#FFFFFF',text:'#221A30'},
+  {name:'Peach',bg:'#F7F0EC',surface:'#FFFFFF',text:'#2B1E16'},
+  {name:'Charcoal',bg:'#1E1E1E',surface:'#2A2A2A',text:'#F0EDE8'},
+  {name:'Navy',bg:'#1A1F2E',surface:'#242B3D',text:'#E8EDF5'},
+];
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDHHu8YMr-pbtKiDC-Jmeif6gRZMNqF9Hc",
-    authDomain: "home-tasks-dd55b.firebaseapp.com",
-    projectId: "home-tasks-dd55b",
-    storageBucket: "home-tasks-dd55b.firebasestorage.app",
-    messagingSenderId: "973414286380",
-    appId: "1:973414286380:web:12ad64d2e3134a3e443d89"
-  };
+let tasks = [];
+let myName = localStorage.getItem('userName') || '';
+let myColor = parseInt(localStorage.getItem('userColor') || '0');
 
-  const app = initializeApp(firebaseConfig);
-  const messaging = getMessaging(app);
+function applyColor(idx) {
+  const c = COLORS[idx];
+  document.documentElement.style.setProperty('--bg', c.bg);
+  document.documentElement.style.setProperty('--surface', c.surface);
+  document.documentElement.style.setProperty('--text', c.text);
+  document.body.style.background = c.bg;
+  myColor = idx;
+  localStorage.setItem('userColor', idx);
+  renderSwatches();
+}
 
-  let tasks = [];
-  let fcmToken = null;
-
-  // Store FCM token in Supabase
-  async function saveFcmToken(token) {
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`, {
-        method: 'POST',
-        headers: { ...HEADERS, 'Prefer': 'resolution=merge-duplicates' },
-        body: JSON.stringify({ token })
-      });
-    } catch(e) {}
-  }
-
-  // Send notification to all other tokens via Supabase edge function (or we store & notify)
-  async function notifyOthers(taskText) {
-    try {
-      // Get all tokens except ours
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens${fcmToken ? `?token=neq.${encodeURIComponent(fcmToken)}` : ''}`, { headers: HEADERS });
-      const tokens = await res.json();
-      if (!tokens.length) return;
-      // Call our notification endpoint
-      await fetch(`${SUPABASE_URL}/functions/v1/notify`, {
-        method: 'POST',
-        headers: { ...HEADERS, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tokens: tokens.map(t => t.token), taskText })
-      });
-    } catch(e) {}
-  }
-
-  async function enableNotifications() {
-    try {
-      const permission = await Notification.requestPermission();
-      if (permission !== 'granted') return;
-      await navigator.serviceWorker.register('./firebase-messaging-sw.js');
-      const token = await getToken(messaging, { vapidKey: VAPID_KEY });
-      if (token) {
-        fcmToken = token;
-        await saveFcmToken(token);
-        document.getElementById('notifBanner').style.display = 'none';
-        showToast('🔔 Notifications enabled!');
-      }
-    } catch(e) {
-      showToast('Could not enable notifications');
-    }
-  }
-
-  window.enableNotifications = enableNotifications;
-
-  // Show in-app toast for foreground messages
-  onMessage(messaging, (payload) => {
-    showToast(payload.notification?.body || 'New task added!');
+function renderSwatches() {
+  const el = document.getElementById('swatches');
+  el.innerHTML = '';
+  COLORS.forEach((c, i) => {
+    const s = document.createElement('button');
+    s.className = 'swatch' + (i === myColor ? ' active' : '');
+    s.style.background = c.bg;
+    s.style.border = '3px solid ' + (i === myColor ? c.text : c.bg);
+    s.title = c.name;
+    s.onclick = () => applyColor(i);
+    el.appendChild(s);
   });
+}
 
-  function showToast(msg) {
-    const t = document.createElement('div');
-    t.textContent = msg;
-    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A1814;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:999;animation:slideIn 0.3s ease;pointer-events:none;';
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 3500);
+function toggleColorPanel() {
+  const p = document.getElementById('colorPanel');
+  p.classList.toggle('open');
+}
+
+function toggleNamePanel() {
+  const p = document.getElementById('namePanel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+  if (p.style.display === 'block') {
+    document.getElementById('nameInput').value = myName;
+    document.getElementById('nameInput').focus();
   }
+}
 
-  function setStatus(state) {
-    document.getElementById('statusDot').className = 'status-dot ' + state;
-    document.getElementById('statusText').textContent =
-      state === 'connected' ? 'Synced ✓' : state === 'error' ? 'Connection error — retrying…' : 'Connecting…';
-  }
+function saveName() {
+  const val = document.getElementById('nameInput').value.trim();
+  if (!val) return;
+  myName = val;
+  localStorage.setItem('userName', val);
+  document.getElementById('namePanel').style.display = 'none';
+  updateTagSelect();
+  showToast('👋 Hello, ' + val + '!');
+}
 
-  async function fetchTasks() {
-    try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/tasks?order=created_at.asc`, { headers: HEADERS });
-      if (!res.ok) throw new Error();
-      tasks = await res.json();
-      setStatus('connected');
-      render();
-    } catch(e) { setStatus('error'); }
-  }
+function updateTagSelect() {
+  const sel = document.getElementById('tagSelect');
+  const otherName = localStorage.getItem('otherName') || 'Partner';
+  sel.innerHTML = `<option value="">No tag</option><option value="${myName || 'Me'}">@me</option><option value="${otherName}">@${otherName}</option>`;
+}
 
-  window.addTask = async function() {
-    const input = document.getElementById('taskInput');
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = '';
-    document.getElementById('addBtn').disabled = true;
-    try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/tasks`, {
-        method: 'POST', headers: HEADERS, body: JSON.stringify({ text, done: false })
-      });
-      if (!res.ok) throw new Error();
-      await notifyOthers(text);
-      await fetchTasks();
-    } catch(e) { setStatus('error'); }
-    document.getElementById('addBtn').disabled = false;
-  };
-
-  window.toggle = async function(id, currentDone) {
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, {
-        method: 'PATCH', headers: HEADERS, body: JSON.stringify({ done: !currentDone })
-      });
-      await fetchTasks();
-    } catch(e) { setStatus('error'); }
-  };
-
-  window.deleteTask = async function(id) {
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, { method: 'DELETE', headers: HEADERS });
-      await fetchTasks();
-    } catch(e) { setStatus('error'); }
-  };
-
-  window.clearDone = async function() {
-    const ids = tasks.filter(t => t.done).map(t => t.id);
-    if (!ids.length) return;
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=in.(${ids.join(',')})`, { method: 'DELETE', headers: HEADERS });
-      await fetchTasks();
-    } catch(e) { setStatus('error'); }
-  };
-
-  function render() {
-    const pending = tasks.filter(t => !t.done);
-    const done = tasks.filter(t => t.done);
-    const total = tasks.length, doneCount = done.length;
-    document.getElementById('progressBar').style.width = total ? Math.round((doneCount/total)*100)+'%' : '0%';
-    document.getElementById('subtitle').textContent =
-      total === 0 ? 'No tasks yet — add one above!' :
-      doneCount === total ? '🎉 All done — great teamwork!' :
-      `${doneCount} of ${total} tasks done`;
-    renderList('pendingList', pending);
-    renderList('doneList', done);
-    document.getElementById('doneSection').style.display = done.length ? 'block' : 'none';
-    if (!pending.length) {
-      document.getElementById('pendingList').innerHTML =
-        total === 0 ? '<div class="empty-state">Nothing here yet. Add your first task!</div>'
-                    : '<div class="empty-state">✅ All tasks are done!</div>';
+async function enableNotifications() {
+  try {
+    await OneSignal.Notifications.requestPermission();
+    const id = await OneSignal.User.PushSubscription.id;
+    if (id) {
+      localStorage.setItem('osPlayerId', id);
+      await savePlayerToken(id);
+      document.getElementById('notifBanner').style.display = 'none';
+      showToast('🔔 Notifications enabled!');
     }
+  } catch(e) {
+    showToast('Could not enable notifications');
   }
+}
 
-  function renderList(listId, items) {
-    const list = document.getElementById(listId);
-    if (!items.length) { list.innerHTML = ''; return; }
-    list.innerHTML = '';
-    items.forEach(task => {
-      const item = document.createElement('div');
-      item.className = 'task-item' + (task.done ? ' done' : '');
-      item.innerHTML = `
-        <button class="check-btn ${task.done ? 'checked' : ''}" onclick="toggle(${task.id}, ${task.done})">
-          <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
-            <path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <span class="task-text">${escapeHtml(task.text)}</span>
-        <button class="del-btn" onclick="deleteTask(${task.id})">×</button>`;
-      list.appendChild(item);
+async function savePlayerToken(playerId) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`, {
+      method:'POST',
+      headers:{...HEADERS,'Prefer':'resolution=merge-duplicates'},
+      body:JSON.stringify({token: playerId})
     });
+  } catch(e){}
+}
+
+async function sendNotification(taskText, taggedName) {
+  try {
+    const myPlayerId = localStorage.getItem('osPlayerId');
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`, {headers:HEADERS});
+    const tokens = await res.json();
+    const others = tokens.filter(t => t.token !== myPlayerId).map(t => t.token);
+    if (!others.length) return;
+
+    const title = taggedName ? `🏡 ${myName || 'Someone'} tagged you!` : `🏡 New task added!`;
+    const body = taskText;
+
+    await fetch('https://onesignal.com/api/v1/notifications', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Basic os_v2_app_yrsrfj3e4jdqvdnhsvqkmbxjia3f2lhajaxeqlm65k3opmvnhtjkufsglcwjbucpgszdkkxjnl4zhhblkxywwhv26xpxpjz46i7hq'},
+      body:JSON.stringify({
+        app_id:'6bb339f5-d3c2-46ed-bfe5-a0f7a1575210',
+        include_player_ids: others,
+        headings:{en: title},
+        contents:{en: body}
+      })
+    });
+  } catch(e){}
+}
+
+function setStatus(state) {
+  document.getElementById('statusDot').className = 'status-dot ' + state;
+  document.getElementById('statusText').textContent =
+    state==='connected' ? 'Synced ✓' : state==='error' ? 'Connection error' : 'Connecting…';
+}
+
+async function fetchTasks() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/tasks?order=created_at.asc`, {headers:HEADERS});
+    if (!res.ok) throw new Error();
+    tasks = await res.json();
+    setStatus('connected');
+    render();
+  } catch(e){setStatus('error');}
+}
+
+async function addTask() {
+  const input = document.getElementById('taskInput');
+  const tag = document.getElementById('tagSelect').value;
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  document.getElementById('addBtn').disabled = true;
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/tasks`, {
+      method:'POST', headers:HEADERS,
+      body:JSON.stringify({text, done:false, author: myName || null, tagged: tag || null})
+    });
+    if (!res.ok) throw new Error();
+    await sendNotification(text, tag);
+    await fetchTasks();
+  } catch(e){setStatus('error');}
+  document.getElementById('addBtn').disabled = false;
+}
+
+async function toggle(id, currentDone) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, {
+      method:'PATCH', headers:HEADERS, body:JSON.stringify({done:!currentDone})
+    });
+    await fetchTasks();
+  } catch(e){setStatus('error');}
+}
+
+async function deleteTask(id) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, {method:'DELETE',headers:HEADERS});
+    await fetchTasks();
+  } catch(e){setStatus('error');}
+}
+
+async function clearDone() {
+  const ids = tasks.filter(t=>t.done).map(t=>t.id);
+  if (!ids.length) return;
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=in.(${ids.join(',')})`, {method:'DELETE',headers:HEADERS});
+    await fetchTasks();
+  } catch(e){setStatus('error');}
+}
+
+function render() {
+  const pending = tasks.filter(t=>!t.done);
+  const done = tasks.filter(t=>t.done);
+  const total = tasks.length, doneCount = done.length;
+  document.getElementById('progressBar').style.width = total ? Math.round((doneCount/total)*100)+'%' : '0%';
+  document.getElementById('subtitle').textContent =
+    total===0 ? 'No tasks yet — add one above!' :
+    doneCount===total ? '🎉 All done — great teamwork!' :
+    `${doneCount} of ${total} tasks done`;
+  renderList('pendingList', pending);
+  renderList('doneList', done);
+  document.getElementById('doneSection').style.display = done.length ? 'block' : 'none';
+  if (!pending.length) {
+    document.getElementById('pendingList').innerHTML =
+      total===0 ? '<div class="empty-state">Nothing here yet. Add your first task!</div>'
+                : '<div class="empty-state">✅ All tasks are done!</div>';
   }
+}
 
-  function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function renderList(listId, items) {
+  const list = document.getElementById(listId);
+  if (!items.length){list.innerHTML='';return;}
+  list.innerHTML='';
+  items.forEach(task => {
+    const item = document.createElement('div');
+    item.className = 'task-item'+(task.done?' done':'');
+    const authorHtml = task.author ? `<span class="task-author">${escHtml(task.author)}</span>` : '';
+    const tagHtml = task.tagged ? `<span class="task-tag">→ ${escHtml(task.tagged)}</span>` : '';
+    const metaHtml = (authorHtml||tagHtml) ? `<div class="task-meta">${authorHtml}${tagHtml}</div>` : '';
+    item.innerHTML = `
+      <button class="check-btn ${task.done?'checked':''}" onclick="toggle(${task.id},${task.done})">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="task-body">
+        ${metaHtml}
+        <span class="task-text">${escHtml(task.text)}</span>
+      </div>
+      <button class="del-btn" onclick="deleteTask(${task.id})">×</button>`;
+    list.appendChild(item);
+  });
+}
 
-  document.getElementById('taskInput').addEventListener('keydown', e => { if (e.key==='Enter') window.addTask(); });
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-  // Show notification banner if not yet granted
-  if (Notification.permission === 'default') {
-    document.getElementById('notifBanner').style.display = 'flex';
-  }
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
 
-  fetchTasks();
-  setInterval(fetchTasks, 5000);
+document.getElementById('taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')addTask();});
+document.getElementById('nameInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')saveName();});
+
+// Init
+applyColor(myColor);
+renderSwatches();
+updateTagSelect();
+
+if (!myName) {
+  document.getElementById('namePanel').style.display = 'block';
+}
+
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(function(OneSignal) {
+  OneSignal.Notifications.addEventListener('permissionChange', (granted) => {
+    if (granted) document.getElementById('notifBanner').style.display = 'none';
+  });
+  setTimeout(() => {
+    if (OneSignal.Notifications.permission !== 'granted') {
+      document.getElementById('notifBanner').style.display = 'flex';
+    }
+  }, 2000);
+});
+
+fetchTasks();
+setInterval(fetchTasks, 5000);
 </script>
 </body>
 </html>
