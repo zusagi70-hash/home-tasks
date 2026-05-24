@@ -15,7 +15,6 @@
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:40px 20px 80px;transition:background 0.4s;}
 .container{max-width:620px;margin:0 auto;}
 
-/* HEADER */
 .header-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;}
 .title{font-family:'Lora',serif;font-size:34px;font-weight:400;letter-spacing:-0.5px;}
 .header-actions{display:flex;gap:8px;margin-top:6px;}
@@ -30,32 +29,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .progress-wrap{background:var(--border);border-radius:99px;height:4px;overflow:hidden;margin-bottom:24px;}
 .progress-bar{height:100%;background:var(--accent);border-radius:99px;transition:width 0.4s;width:0%;}
 
-/* PANELS */
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px;display:none;}
 .panel.open{display:block;}
 .panel-title{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
-
-/* COLOR SWATCHES */
 .color-swatches{display:flex;flex-wrap:wrap;gap:10px;}
 .swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:transform 0.15s;}
 .swatch:hover{transform:scale(1.15);}
 .swatch.active{border-color:var(--text);}
-
-/* NAME PANEL */
 .input-row{display:flex;gap:10px;}
 .input-row input{flex:1;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:15px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);outline:none;transition:border-color 0.2s;}
 .input-row input:focus{border-color:var(--accent);}
-.input-row button,.btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:opacity 0.15s;}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:opacity 0.15s;}
 .btn:hover{opacity:0.85;}
-.btn.secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}
-.btn.secondary:hover{border-color:var(--accent);}
-.btn.danger{background:var(--danger);}
 
 /* NOTIFICATION BANNER */
 .notif-banner{background:var(--accent-light);border:1px solid var(--accent);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:14px;color:var(--accent);display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .notif-banner button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;}
 
-/* ADD ROW */
+/* ADD SECTION */
 .add-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:24px;}
 .add-section-title{font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
 .add-row{display:flex;gap:8px;flex-wrap:wrap;}
@@ -66,33 +57,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .add-row button{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:11px 18px;font-size:20px;cursor:pointer;transition:opacity 0.15s;}
 .add-row button:disabled{opacity:0.4;cursor:not-allowed;}
 
-/* CATEGORY SECTION */
-.cat-section{margin-bottom:20px;}
-.cat-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color 0.2s;margin-bottom:0;}
-.cat-header:hover{border-color:var(--accent);}
-.cat-header.open{border-radius:12px 12px 0 0;border-bottom:none;}
-.cat-header-left{display:flex;align-items:center;gap:10px;}
-.cat-icon{font-size:16px;}
-.cat-name{font-size:15px;font-weight:500;}
-.cat-count{font-size:12px;color:var(--muted);background:var(--bg);padding:2px 8px;border-radius:99px;}
-.cat-header-right{display:flex;align-items:center;gap:8px;}
-.cat-pin-btn{background:none;border:none;cursor:pointer;font-size:14px;padding:2px 6px;border-radius:6px;transition:background 0.15s;}
-.cat-pin-btn:hover{background:var(--bg);}
-.cat-chevron{font-size:12px;color:var(--muted);transition:transform 0.2s;}
-.cat-chevron.open{transform:rotate(180deg);}
-.cat-body{background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;padding:8px;display:none;}
-.cat-body.open{display:block;}
-.cat-del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;padding:2px 6px;border-radius:6px;}
-.cat-del-btn:hover{color:var(--danger);}
-
-/* PINNED SECTION */
+/* PINNED BAR */
 .pinned-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
 .pin-chip{background:var(--surface);border:1px solid var(--accent);border-radius:99px;padding:6px 14px;font-size:13px;color:var(--accent);cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.15s;}
 .pin-chip:hover{background:var(--accent-light);}
 .pin-chip .chip-count{background:var(--accent);color:#fff;border-radius:99px;padding:1px 7px;font-size:11px;}
 
-/* TASK ITEM */
-.task-list{display:flex;flex-direction:column;gap:6px;}
+/* CATEGORY */
+.cat-section{margin-bottom:16px;}
+.cat-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color 0.2s;}
+.cat-header:hover{border-color:var(--accent);}
+.cat-header.open{border-radius:12px 12px 0 0;border-bottom:1px solid var(--border);}
+.cat-header-left{display:flex;align-items:center;gap:10px;}
+.cat-name{font-size:15px;font-weight:500;}
+.cat-count{font-size:12px;color:var(--muted);background:var(--bg);padding:2px 8px;border-radius:99px;}
+.cat-header-right{display:flex;align-items:center;gap:6px;}
+.cat-pin-btn,.cat-del-btn{background:none;border:none;cursor:pointer;font-size:14px;padding:3px 6px;border-radius:6px;transition:background 0.15s;}
+.cat-pin-btn:hover,.cat-del-btn:hover{background:var(--bg);}
+.cat-chevron{font-size:11px;color:var(--muted);transition:transform 0.2s;}
+.cat-chevron.open{transform:rotate(180deg);}
+.cat-body{background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;padding:8px;display:none;}
+.cat-body.open{display:block;}
+
+/* TASK */
+.section-label{font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding-left:2px;}
+.task-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;}
 .task-item{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 12px;animation:slideIn 0.2s ease;transition:opacity 0.2s;}
 .task-item:hover{border-color:#C8C3BA;}
 .task-item.done{opacity:0.5;}
@@ -107,31 +96,31 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .task-tag{font-size:11px;color:var(--muted);background:var(--border);padding:1px 7px;border-radius:99px;}
 .task-text{font-size:15px;color:var(--text);line-height:1.4;}
 .task-item.done .task-text{text-decoration:line-through;color:var(--done-text);}
-.del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;padding:2px 4px;border-radius:6px;opacity:0;transition:opacity 0.15s,color 0.15s;flex-shrink:0;}
-.task-item:hover .del-btn{opacity:1;}
-.del-btn:hover{color:var(--danger);}
+.task-actions{display:flex;gap:4px;opacity:0;transition:opacity 0.15s;flex-shrink:0;}
+.task-item:hover .task-actions{opacity:1;}
+.edit-btn,.del-btn{background:none;border:none;cursor:pointer;padding:3px 5px;border-radius:6px;transition:background 0.15s;display:flex;align-items:center;}
+.edit-btn:hover{background:var(--accent-light);}
+.del-btn:hover{background:#fdecea;}
 
-/* UNCATEGORIZED SECTION */
-.section-label{font-size:11px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding-left:2px;}
-.task-list-outer{margin-bottom:24px;}
+/* EDIT MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--surface);border-radius:16px;padding:24px;width:100%;max-width:480px;}
+.modal h3{font-size:17px;font-weight:500;margin-bottom:16px;}
+.modal textarea{width:100%;border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:15px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);outline:none;resize:vertical;min-height:80px;transition:border-color 0.2s;}
+.modal textarea:focus{border-color:var(--accent);}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;}
+.btn-cancel{background:none;border:1px solid var(--border);border-radius:10px;padding:9px 16px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--text);}
+.btn-save{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
 .empty-state{text-align:center;padding:24px;color:var(--muted);font-size:14px;font-weight:300;}
-.footer-actions{display:flex;justify-content:flex-end;margin-top:8px;}
+.footer-actions{display:flex;justify-content:flex-end;margin-top:4px;margin-bottom:16px;}
 .clear-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:7px 14px;font-size:13px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:color 0.15s,border-color 0.15s;}
 .clear-btn:hover{color:var(--danger);border-color:var(--danger);}
-
-/* NEW CATEGORY ROW */
-.new-cat-row{display:flex;gap:8px;padding:8px;}
-.new-cat-row input{flex:1;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);outline:none;}
-.new-cat-row input:focus{border-color:var(--accent);}
-.new-cat-row button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:14px;cursor:pointer;}
-
-/* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A1814;color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:999;pointer-events:none;white-space:nowrap;}
 </style>
 </head>
 <body>
 <div class="container">
-
   <div class="header-row">
     <div class="title">🏡 Our Home</div>
     <div class="header-actions">
@@ -139,7 +128,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <button class="icon-btn" onclick="togglePanel('namePanel')" title="Settings">⚙️</button>
     </div>
   </div>
-
   <div class="status-row">
     <span class="status-dot" id="statusDot"></span>
     <span class="status-text" id="statusText">Connecting…</span>
@@ -147,13 +135,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="subtitle" id="subtitle"> </div>
   <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
 
-  <!-- Color Panel -->
   <div class="panel" id="colorPanel">
     <div class="panel-title">🎨 Your background color</div>
     <div class="color-swatches" id="swatches"></div>
   </div>
 
-  <!-- Name Panel -->
   <div class="panel" id="namePanel">
     <div class="panel-title">👤 Your name</div>
     <div class="input-row">
@@ -163,16 +149,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div style="margin-top:10px;font-size:12px;color:var(--muted)" id="partnerNameDisplay"></div>
   </div>
 
-  <!-- Notification Banner -->
-  <div class="notif-banner" id="notifBanner" style="display:none;">
+  <!-- Notification banner — always shown until explicitly dismissed -->
+  <div class="notif-banner" id="notifBanner">
     🔔 Get notified when a task is added!
     <button onclick="enableNotifications()">Enable</button>
   </div>
 
-  <!-- Pinned chips -->
   <div class="pinned-bar" id="pinnedBar"></div>
 
-  <!-- Add Task -->
   <div class="add-section">
     <div class="add-section-title">Add task</div>
     <div class="add-row">
@@ -183,15 +167,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
 
-  <!-- Categories -->
   <div id="categoriesArea"></div>
-
-  <!-- Uncategorized -->
   <div id="uncategorizedArea"></div>
-
-  <!-- Done -->
   <div id="doneArea"></div>
+</div>
 
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal" style="display:none" onclick="closeEditModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>✏️ Edit task</h3>
+    <textarea id="editTextarea"></textarea>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="document.getElementById('editModal').style.display='none'">Cancel</button>
+      <button class="btn-save" onclick="saveEdit()">Save</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -199,15 +189,9 @@ const SUPABASE_URL = 'https://ynkjrhqozilkodbqbovc.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_Po4L9daBr7lPd0OcsOoHhA_saw1NvVH';
 const ONESIGNAL_APP_ID = '6bb339f5-d3c2-46ed-bfe5-a0f7a1575210';
 const ONESIGNAL_REST_KEY = 'os_v2_app_yrsrfj3e4jdqvdnhsvqkmbxjia3f2lhajaxeqlm65k3opmvnhtjkufsglcwjbucpgszdkkxjnl4zhhblkxywwhv26xpxpjz46i7hq';
+const H={'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=representation'};
 
-const H = {
-  'Content-Type':'application/json',
-  'apikey':SUPABASE_KEY,
-  'Authorization':'Bearer '+SUPABASE_KEY,
-  'Prefer':'return=representation'
-};
-
-const COLORS = [
+const COLORS=[
   {name:'Warm Cream',bg:'#F7F5F0',surface:'#FFFFFF',text:'#1A1814'},
   {name:'Sage Green',bg:'#EDF2EE',surface:'#FFFFFF',text:'#1A2B1E'},
   {name:'Dusty Rose',bg:'#F5EFEF',surface:'#FFFFFF',text:'#2B1A1A'},
@@ -218,446 +202,333 @@ const COLORS = [
   {name:'Navy',bg:'#1A1F2E',surface:'#242B3D',text:'#E8EDF5'},
 ];
 
-let tasks = [], categories = [], allNames = [];
-let myName = localStorage.getItem('userName') || '';
-let myId = localStorage.getItem('userId') || ('user_' + Math.random().toString(36).slice(2,8));
-let myColor = parseInt(localStorage.getItem('userColor') || '0');
-let collapsedCats = JSON.parse(localStorage.getItem('collapsedCats') || '[]');
-localStorage.setItem('userId', myId);
+let tasks=[],categories=[],allNames=[];
+let myName=localStorage.getItem('userName')||'';
+let myId=localStorage.getItem('userId')||('user_'+Math.random().toString(36).slice(2,8));
+let myColor=parseInt(localStorage.getItem('userColor')||'0');
+let collapsedCats=JSON.parse(localStorage.getItem('collapsedCats')||'[]');
+let editingTaskId=null;
+let osReady=false;
+localStorage.setItem('userId',myId);
 
 // ── COLOR ──────────────────────────────────────────
-function applyColor(idx) {
-  const c = COLORS[idx];
-  document.documentElement.style.setProperty('--bg', c.bg);
-  document.documentElement.style.setProperty('--surface', c.surface);
-  document.documentElement.style.setProperty('--text', c.text);
-  myColor = idx;
-  localStorage.setItem('userColor', idx);
-  renderSwatches();
+function applyColor(idx){
+  const c=COLORS[idx];
+  document.documentElement.style.setProperty('--bg',c.bg);
+  document.documentElement.style.setProperty('--surface',c.surface);
+  document.documentElement.style.setProperty('--text',c.text);
+  myColor=idx; localStorage.setItem('userColor',idx); renderSwatches();
 }
-function renderSwatches() {
-  const el = document.getElementById('swatches');
-  el.innerHTML = '';
-  COLORS.forEach((c,i) => {
-    const s = document.createElement('button');
-    s.className = 'swatch'+(i===myColor?' active':'');
-    s.style.cssText = `background:${c.bg};border:3px solid ${i===myColor?'#666':c.bg};box-shadow:0 1px 4px rgba(0,0,0,0.12)`;
-    s.title = c.name;
-    s.onclick = () => applyColor(i);
-    el.appendChild(s);
+function renderSwatches(){
+  const el=document.getElementById('swatches'); el.innerHTML='';
+  COLORS.forEach((c,i)=>{
+    const s=document.createElement('button');
+    s.className='swatch'+(i===myColor?' active':'');
+    s.style.cssText=`background:${c.bg};border:3px solid ${i===myColor?'#666':c.bg};box-shadow:0 1px 4px rgba(0,0,0,0.12)`;
+    s.title=c.name; s.onclick=()=>applyColor(i); el.appendChild(s);
   });
 }
 
 // ── PANELS ─────────────────────────────────────────
-function togglePanel(id) {
-  const p = document.getElementById(id);
-  const isOpen = p.classList.contains('open');
-  document.querySelectorAll('.panel').forEach(x => x.classList.remove('open'));
-  if (!isOpen) {
-    p.classList.add('open');
-    if (id==='namePanel') {
-      document.getElementById('nameInput').value = myName;
-      document.getElementById('nameInput').focus();
-    }
-  }
+function togglePanel(id){
+  const p=document.getElementById(id);
+  const isOpen=p.classList.contains('open');
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('open'));
+  if(!isOpen){p.classList.add('open');if(id==='namePanel'){document.getElementById('nameInput').value=myName;document.getElementById('nameInput').focus();}}
 }
 
 // ── NAMES ──────────────────────────────────────────
-async function saveName() {
-  const val = document.getElementById('nameInput').value.trim();
-  if (!val) return;
-  myName = val;
-  localStorage.setItem('userName', val);
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/user_names`, {
-      method:'POST',
-      headers:{...H,'Prefer':'resolution=merge-duplicates'},
-      body:JSON.stringify({id: myId, name: val})
-    });
-  } catch(e){}
+async function saveName(){
+  const val=document.getElementById('nameInput').value.trim();
+  if(!val)return;
+  myName=val; localStorage.setItem('userName',val);
+  try{await fetch(`${SUPABASE_URL}/rest/v1/user_names`,{method:'POST',headers:{...H,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({id:myId,name:val})});}catch(e){}
   document.getElementById('namePanel').classList.remove('open');
-  updateTagSelect();
-  showToast('👋 Saved as ' + val + '!');
-  await fetchNames();
+  updateTagSelect(); showToast('👋 Saved as '+val+'!'); await fetchNames();
 }
-
-async function fetchNames() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/user_names?select=*`, {headers:H});
-    allNames = await res.json();
-    updateTagSelect();
-    updatePartnerDisplay();
-  } catch(e){}
+async function fetchNames(){
+  try{const res=await fetch(`${SUPABASE_URL}/rest/v1/user_names?select=*`,{headers:H});allNames=await res.json();updateTagSelect();updatePartnerDisplay();}catch(e){}
 }
-
-function updateTagSelect() {
-  const sel = document.getElementById('tagSelect');
-  const others = allNames.filter(n => n.id !== myId);
-  sel.innerHTML = '<option value="">No tag</option>';
-  if (myName) sel.innerHTML += `<option value="${myName}">@me (${myName})</option>`;
-  others.forEach(n => {
-    sel.innerHTML += `<option value="${n.name}">@${n.name}</option>`;
-  });
+function updateTagSelect(){
+  const sel=document.getElementById('tagSelect');
+  const others=allNames.filter(n=>n.id!==myId);
+  sel.innerHTML='<option value="">No tag</option>';
+  if(myName)sel.innerHTML+=`<option value="${myName}">@me (${myName})</option>`;
+  others.forEach(n=>{sel.innerHTML+=`<option value="${n.name}">@${n.name}</option>`;});
 }
-
-function updatePartnerDisplay() {
-  const others = allNames.filter(n => n.id !== myId);
-  const el = document.getElementById('partnerNameDisplay');
-  if (others.length) {
-    el.textContent = '👫 Partner: ' + others.map(n=>n.name).join(', ');
-  } else {
-    el.textContent = 'No partner connected yet.';
-  }
+function updatePartnerDisplay(){
+  const others=allNames.filter(n=>n.id!==myId);
+  document.getElementById('partnerNameDisplay').textContent=others.length?'👫 Partner: '+others.map(n=>n.name).join(', '):'No partner connected yet.';
 }
 
 // ── NOTIFICATIONS ──────────────────────────────────
-async function enableNotifications() {
-  try {
-    if (typeof OneSignal === 'undefined') {
-      showToast('Loading notifications, please try again…');
-      await loadOneSignal();
+function loadOneSignalScript(){
+  return new Promise(resolve=>{
+    if(typeof OneSignal!=='undefined'){resolve();return;}
+    if(document.getElementById('osScript')){
+      const check=setInterval(()=>{if(typeof OneSignal!=='undefined'){clearInterval(check);resolve();}},200);
       return;
     }
-    await OneSignal.init({
-      appId: ONESIGNAL_APP_ID,
-      notifyButton: { enable: false },
-      allowLocalhostAsSecureOrigin: true,
-    });
-    const permission = await OneSignal.Notifications.requestPermission();
-    if (!permission) { showToast('Permission denied'); return; }
-    await new Promise(r => setTimeout(r, 1500));
-    const subId = OneSignal.User.PushSubscription.id;
-    if (subId) {
-      localStorage.setItem('osSubId', subId);
-      await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`, {
-        method:'POST',
-        headers:{...H,'Prefer':'resolution=merge-duplicates'},
-        body:JSON.stringify({token: subId})
-      });
-      document.getElementById('notifBanner').style.display = 'none';
-      showToast('🔔 Notifications enabled!');
-    } else {
-      showToast('Please try again in a moment');
-    }
-  } catch(e) {
-    showToast('Error: ' + e.message);
-  }
-}
-
-function loadOneSignal() {
-  return new Promise((resolve) => {
-    if (document.getElementById('osScript')) { resolve(); return; }
-    const s = document.createElement('script');
-    s.id = 'osScript';
-    s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
-    s.defer = true;
-    s.onload = () => setTimeout(resolve, 1000);
+    const s=document.createElement('script');
+    s.id='osScript';
+    s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
+    s.onload=()=>{const check=setInterval(()=>{if(typeof OneSignal!=='undefined'){clearInterval(check);resolve();}},200);};
+    s.onerror=()=>resolve();
     document.head.appendChild(s);
   });
 }
 
-async function sendNotification(taskText, taggedName) {
-  try {
-    const mySubId = localStorage.getItem('osSubId');
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens?select=token`, {headers:H});
-    const tokens = await res.json();
-    const others = tokens.filter(t => t.token !== mySubId).map(t => t.token);
-    if (!others.length) return;
-    const title = taggedName ? `🏡 ${myName||'Someone'} tagged you!` : `🏡 New task!`;
-    await fetch('https://onesignal.com/api/v1/notifications', {
+async function initOneSignal(){
+  await loadOneSignalScript();
+  if(typeof OneSignal==='undefined')return;
+  try{
+    await OneSignal.init({appId:ONESIGNAL_APP_ID,notifyButton:{enable:false},allowLocalhostAsSecureOrigin:true});
+    osReady=true;
+    // Always show banner — user can dismiss by clicking Enable
+    const perm=OneSignal.Notifications.permission;
+    if(perm==='granted'){
+      // Already granted — just save token silently
+      const subId=OneSignal.User.PushSubscription.id;
+      if(subId){
+        localStorage.setItem('osSubId',subId);
+        await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`,{method:'POST',headers:{...H,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({token:subId})});
+        document.getElementById('notifBanner').style.display='none';
+      }
+    }
+  }catch(e){console.log('OS init error',e);}
+}
+
+async function enableNotifications(){
+  try{
+    if(!osReady){
+      showToast('Setting up notifications…');
+      await initOneSignal();
+      if(!osReady){showToast('Could not load notifications. Try refreshing.');return;}
+    }
+    const perm=await OneSignal.Notifications.requestPermission();
+    if(!perm){showToast('Permission not granted — check browser settings');return;}
+    await new Promise(r=>setTimeout(r,2000));
+    const subId=OneSignal.User.PushSubscription.id;
+    if(subId){
+      localStorage.setItem('osSubId',subId);
+      await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`,{method:'POST',headers:{...H,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({token:subId})});
+      document.getElementById('notifBanner').style.display='none';
+      showToast('🔔 Notifications enabled!');
+    }else{
+      showToast('Please try again — tap Enable once more');
+    }
+  }catch(e){showToast('Error: '+e.message);}
+}
+
+async function sendNotification(taskText,taggedName){
+  try{
+    const mySubId=localStorage.getItem('osSubId');
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens?select=token`,{headers:H});
+    const tokens=await res.json();
+    const others=tokens.filter(t=>t.token!==mySubId).map(t=>t.token);
+    if(!others.length)return;
+    const title=taggedName?`🏡 ${myName||'Someone'} tagged you!`:`🏡 New task!`;
+    await fetch('https://onesignal.com/api/v1/notifications',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Basic '+ONESIGNAL_REST_KEY},
-      body:JSON.stringify({
-        app_id: ONESIGNAL_APP_ID,
-        include_subscription_uuids: others,
-        headings:{en: title},
-        contents:{en: taskText}
-      })
+      body:JSON.stringify({app_id:ONESIGNAL_APP_ID,include_subscription_uuids:others,headings:{en:title},contents:{en:taskText}})
     });
-  } catch(e){}
+  }catch(e){}
 }
 
 // ── CATEGORIES ─────────────────────────────────────
-async function fetchCategories() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/categories?order=created_at.asc`, {headers:H});
-    categories = await res.json();
-    updateCatSelect();
-  } catch(e){}
+async function fetchCategories(){
+  try{const res=await fetch(`${SUPABASE_URL}/rest/v1/categories?order=created_at.asc`,{headers:H});categories=await res.json();updateCatSelect();}catch(e){}
 }
-
-function updateCatSelect() {
-  const sel = document.getElementById('catSelect');
-  const cur = sel.value;
-  sel.innerHTML = '<option value="">No category</option>';
-  categories.forEach(c => {
-    sel.innerHTML += `<option value="${c.id}" ${c.id==cur?'selected':''}>${c.name}</option>`;
-  });
-  sel.innerHTML += '<option value="__new__">+ New category…</option>';
+function updateCatSelect(){
+  const sel=document.getElementById('catSelect');const cur=sel.value;
+  sel.innerHTML='<option value="">No category</option>';
+  categories.forEach(c=>{sel.innerHTML+=`<option value="${c.id}"${c.id==cur?' selected':''}>${c.name}</option>`;});
+  sel.innerHTML+='<option value="__new__">+ New category…</option>';
 }
-
-document.getElementById('catSelect').addEventListener('change', async function() {
-  if (this.value === '__new__') {
-    const name = prompt('Category name:');
-    if (name && name.trim()) {
-      await createCategory(name.trim());
-    } else {
-      this.value = '';
-    }
-  }
+document.getElementById('catSelect').addEventListener('change',async function(){
+  if(this.value==='__new__'){const name=prompt('Category name:');if(name&&name.trim()){await createCategory(name.trim());}else{this.value='';}}
 });
-
-async function createCategory(name) {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/categories`, {
-      method:'POST', headers:H,
-      body:JSON.stringify({name, pinned:false})
-    });
-    const data = await res.json();
-    await fetchCategories();
-    document.getElementById('catSelect').value = data[0]?.id || '';
-  } catch(e){}
+async function createCategory(name){
+  try{const res=await fetch(`${SUPABASE_URL}/rest/v1/categories`,{method:'POST',headers:H,body:JSON.stringify({name,pinned:false})});const data=await res.json();await fetchCategories();document.getElementById('catSelect').value=data[0]?.id||'';}catch(e){}
 }
-
-async function toggleCatPin(catId) {
-  const cat = categories.find(c=>c.id==catId);
-  if (!cat) return;
-  await fetch(`${SUPABASE_URL}/rest/v1/categories?id=eq.${catId}`, {
-    method:'PATCH', headers:H,
-    body:JSON.stringify({pinned: !cat.pinned})
-  });
-  await fetchCategories();
-  render();
+async function toggleCatPin(catId){
+  const cat=categories.find(c=>c.id==catId);if(!cat)return;
+  await fetch(`${SUPABASE_URL}/rest/v1/categories?id=eq.${catId}`,{method:'PATCH',headers:H,body:JSON.stringify({pinned:!cat.pinned})});
+  await fetchCategories();render();
 }
-
-async function deleteCategory(catId) {
-  if (!confirm('Delete this category? Tasks will become uncategorized.')) return;
-  await fetch(`${SUPABASE_URL}/rest/v1/tasks?category=eq.${catId}`, {
-    method:'PATCH', headers:H,
-    body:JSON.stringify({category: null})
-  });
-  await fetch(`${SUPABASE_URL}/rest/v1/categories?id=eq.${catId}`, {method:'DELETE',headers:H});
-  await fetchCategories();
-  await fetchTasks();
+async function deleteCategory(catId){
+  if(!confirm('Delete this category? Tasks will become uncategorized.'))return;
+  await fetch(`${SUPABASE_URL}/rest/v1/tasks?category=eq.${catId}`,{method:'PATCH',headers:H,body:JSON.stringify({category:null})});
+  await fetch(`${SUPABASE_URL}/rest/v1/categories?id=eq.${catId}`,{method:'DELETE',headers:H});
+  await fetchCategories();await fetchTasks();
 }
-
-function toggleCollapse(catId) {
-  const key = String(catId);
-  if (collapsedCats.includes(key)) {
-    collapsedCats = collapsedCats.filter(x=>x!==key);
-  } else {
-    collapsedCats.push(key);
-  }
-  localStorage.setItem('collapsedCats', JSON.stringify(collapsedCats));
-  render();
+function toggleCollapse(catId){
+  const key=String(catId);
+  collapsedCats=collapsedCats.includes(key)?collapsedCats.filter(x=>x!==key):[...collapsedCats,key];
+  localStorage.setItem('collapsedCats',JSON.stringify(collapsedCats));render();
 }
 
 // ── TASKS ──────────────────────────────────────────
-function setStatus(state) {
-  document.getElementById('statusDot').className = 'status-dot '+state;
-  document.getElementById('statusText').textContent =
-    state==='connected'?'Synced ✓':state==='error'?'Connection error':'Connecting…';
+function setStatus(state){
+  document.getElementById('statusDot').className='status-dot '+state;
+  document.getElementById('statusText').textContent=state==='connected'?'Synced ✓':state==='error'?'Connection error':'Connecting…';
+}
+async function fetchTasks(){
+  try{const res=await fetch(`${SUPABASE_URL}/rest/v1/tasks?order=created_at.asc`,{headers:H});if(!res.ok)throw new Error();tasks=await res.json();setStatus('connected');render();}catch(e){setStatus('error');}
+}
+async function addTask(){
+  const input=document.getElementById('taskInput');
+  const catId=document.getElementById('catSelect').value;
+  const tag=document.getElementById('tagSelect').value;
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';
+  document.getElementById('addBtn').disabled=true;
+  try{
+    await fetch(`${SUPABASE_URL}/rest/v1/tasks`,{method:'POST',headers:H,body:JSON.stringify({text,done:false,author:myName||null,tagged:tag||null,category:(catId&&catId!=='__new__')?catId:null})});
+    await sendNotification(text,tag);await fetchTasks();
+  }catch(e){setStatus('error');}
+  document.getElementById('addBtn').disabled=false;
+}
+async function toggle(id,currentDone){
+  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`,{method:'PATCH',headers:H,body:JSON.stringify({done:!currentDone})});await fetchTasks();}catch(e){setStatus('error');}
+}
+async function deleteTask(id){
+  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`,{method:'DELETE',headers:H});await fetchTasks();}catch(e){setStatus('error');}
+}
+async function clearDone(){
+  const ids=tasks.filter(t=>t.done).map(t=>t.id);if(!ids.length)return;
+  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=in.(${ids.join(',')})`,{method:'DELETE',headers:H});await fetchTasks();}catch(e){setStatus('error');}
 }
 
-async function fetchTasks() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/tasks?order=created_at.asc`, {headers:H});
-    if (!res.ok) throw new Error();
-    tasks = await res.json();
-    setStatus('connected');
-    render();
-  } catch(e){setStatus('error');}
+// ── EDIT ───────────────────────────────────────────
+function openEdit(id){
+  const task=tasks.find(t=>t.id===id);if(!task)return;
+  editingTaskId=id;
+  document.getElementById('editTextarea').value=task.text;
+  document.getElementById('editModal').style.display='flex';
+  setTimeout(()=>document.getElementById('editTextarea').focus(),100);
 }
-
-async function addTask() {
-  const input = document.getElementById('taskInput');
-  const catId = document.getElementById('catSelect').value;
-  const tag = document.getElementById('tagSelect').value;
-  const text = input.value.trim();
-  if (!text) return;
-  input.value = '';
-  document.getElementById('addBtn').disabled = true;
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/tasks`, {
-      method:'POST', headers:H,
-      body:JSON.stringify({
-        text, done:false,
-        author: myName||null,
-        tagged: tag||null,
-        category: (catId && catId!=='__new__') ? catId : null
-      })
-    });
-    await sendNotification(text, tag);
-    await fetchTasks();
-  } catch(e){setStatus('error');}
-  document.getElementById('addBtn').disabled = false;
+function closeEditModal(e){
+  if(e.target===document.getElementById('editModal'))document.getElementById('editModal').style.display='none';
 }
-
-async function toggle(id, currentDone) {
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, {
-      method:'PATCH', headers:H, body:JSON.stringify({done:!currentDone})
-    });
-    await fetchTasks();
-  } catch(e){setStatus('error');}
-}
-
-async function deleteTask(id) {
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`, {method:'DELETE',headers:H});
-    await fetchTasks();
-  } catch(e){setStatus('error');}
-}
-
-async function clearDone() {
-  const ids = tasks.filter(t=>t.done).map(t=>t.id);
-  if (!ids.length) return;
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=in.(${ids.join(',')})`, {method:'DELETE',headers:H});
-    await fetchTasks();
-  } catch(e){setStatus('error');}
+async function saveEdit(){
+  const text=document.getElementById('editTextarea').value.trim();
+  if(!text||!editingTaskId)return;
+  try{
+    await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${editingTaskId}`,{method:'PATCH',headers:H,body:JSON.stringify({text})});
+    document.getElementById('editModal').style.display='none';
+    editingTaskId=null;await fetchTasks();
+  }catch(e){showToast('Could not save');}
 }
 
 // ── RENDER ─────────────────────────────────────────
-function render() {
-  const pending = tasks.filter(t=>!t.done);
-  const done = tasks.filter(t=>t.done);
-  const total = tasks.length, doneCount = done.length;
-
-  document.getElementById('progressBar').style.width = total ? Math.round((doneCount/total)*100)+'%' : '0%';
-  document.getElementById('subtitle').textContent =
-    total===0 ? 'No tasks yet — add one above!' :
-    doneCount===total ? '🎉 All done — great teamwork!' :
-    `${doneCount} of ${total} tasks done`;
+function render(){
+  const pending=tasks.filter(t=>!t.done);
+  const done=tasks.filter(t=>t.done);
+  const total=tasks.length,doneCount=done.length;
+  document.getElementById('progressBar').style.width=total?Math.round((doneCount/total)*100)+'%':'0%';
+  document.getElementById('subtitle').textContent=total===0?'No tasks yet — add one above!':doneCount===total?'🎉 All done — great teamwork!':`${doneCount} of ${total} tasks done`;
 
   // Pinned chips
-  const pinnedBar = document.getElementById('pinnedBar');
-  const pinnedCats = categories.filter(c=>c.pinned);
-  pinnedBar.innerHTML = '';
-  pinnedCats.forEach(cat => {
-    const catTasks = pending.filter(t=>String(t.category)===String(cat.id));
-    const chip = document.createElement('div');
-    chip.className = 'pin-chip';
-    chip.innerHTML = `📌 ${escHtml(cat.name)} <span class="chip-count">${catTasks.length}</span>`;
-    chip.onclick = () => {
-      const el = document.getElementById('cat-'+cat.id);
-      if (el) el.scrollIntoView({behavior:'smooth'});
-    };
+  const pinnedBar=document.getElementById('pinnedBar');pinnedBar.innerHTML='';
+  categories.filter(c=>c.pinned).forEach(cat=>{
+    const n=pending.filter(t=>String(t.category)===String(cat.id)).length;
+    const chip=document.createElement('div');chip.className='pin-chip';
+    chip.innerHTML=`📌 ${escHtml(cat.name)} <span class="chip-count">${n}</span>`;
+    chip.onclick=()=>{const el=document.getElementById('cat-'+cat.id);if(el)el.scrollIntoView({behavior:'smooth'});};
     pinnedBar.appendChild(chip);
   });
 
   // Categories
-  const catsArea = document.getElementById('categoriesArea');
-  catsArea.innerHTML = '';
-  categories.forEach(cat => {
-    const catTasks = pending.filter(t=>String(t.category)===String(cat.id));
-    const isCollapsed = collapsedCats.includes(String(cat.id));
-    const div = document.createElement('div');
-    div.className = 'cat-section';
-    div.id = 'cat-'+cat.id;
-    div.innerHTML = `
-      <div class="cat-header ${!isCollapsed?'open':''}" onclick="toggleCollapse(${cat.id})">
+  const catsArea=document.getElementById('categoriesArea');catsArea.innerHTML='';
+  categories.forEach(cat=>{
+    const catTasks=pending.filter(t=>String(t.category)===String(cat.id));
+    const isCollapsed=collapsedCats.includes(String(cat.id));
+    const div=document.createElement('div');div.className='cat-section';div.id='cat-'+cat.id;
+    div.innerHTML=`
+      <div class="cat-header${!isCollapsed?' open':''}" onclick="toggleCollapse(${cat.id})">
         <div class="cat-header-left">
-          <span class="cat-icon">📂</span>
+          <span style="font-size:16px">📂</span>
           <span class="cat-name">${escHtml(cat.name)}</span>
           <span class="cat-count">${catTasks.length}</span>
         </div>
         <div class="cat-header-right" onclick="event.stopPropagation()">
-          <button class="cat-pin-btn" onclick="toggleCatPin(${cat.id})" title="${cat.pinned?'Unpin':'Pin to top'}">${cat.pinned?'📌':'📍'}</button>
+          <button class="cat-pin-btn" onclick="toggleCatPin(${cat.id})" title="${cat.pinned?'Unpin':'Pin'}">${cat.pinned?'📌':'📍'}</button>
           <button class="cat-del-btn" onclick="deleteCategory(${cat.id})">🗑</button>
-          <span class="cat-chevron ${!isCollapsed?'open':''}">▼</span>
+          <span class="cat-chevron${!isCollapsed?' open':''}">▼</span>
         </div>
       </div>
-      <div class="cat-body ${!isCollapsed?'open':''}">
+      <div class="cat-body${!isCollapsed?' open':''}">
         <div class="task-list" id="catlist-${cat.id}"></div>
-        ${catTasks.length===0?'<div class="empty-state" style="padding:16px">No tasks here yet</div>':''}
+        ${catTasks.length===0?'<div class="empty-state" style="padding:14px">No tasks here yet</div>':''}
       </div>`;
     catsArea.appendChild(div);
-    if (!isCollapsed) renderTaskList('catlist-'+cat.id, catTasks);
+    if(!isCollapsed)renderTaskList('catlist-'+cat.id,catTasks);
   });
 
   // Uncategorized
-  const uncatTasks = pending.filter(t=>!t.category);
-  const uncatArea = document.getElementById('uncategorizedArea');
-  if (uncatTasks.length) {
-    uncatArea.innerHTML = `<div class="section-label">To do</div><div class="task-list-outer"><div class="task-list" id="uncatList"></div></div>`;
-    renderTaskList('uncatList', uncatTasks);
-  } else if (!categories.length) {
-    uncatArea.innerHTML = `<div class="section-label">To do</div><div class="empty-state">Nothing here yet. Add your first task!</div>`;
-  } else {
-    uncatArea.innerHTML = '';
-  }
+  const uncatTasks=pending.filter(t=>!t.category);
+  const uncatArea=document.getElementById('uncategorizedArea');
+  if(uncatTasks.length){
+    uncatArea.innerHTML=`<div class="section-label">To do</div><div class="task-list" id="uncatList"></div>`;
+    renderTaskList('uncatList',uncatTasks);
+  }else if(!categories.length){
+    uncatArea.innerHTML=`<div class="section-label">To do</div><div class="empty-state">Nothing here yet. Add your first task!</div>`;
+  }else{uncatArea.innerHTML='';}
 
   // Done
-  const doneArea = document.getElementById('doneArea');
-  if (done.length) {
-    doneArea.innerHTML = `<div class="section-label" style="margin-top:8px">Done</div><div class="task-list" id="doneList"></div><div class="footer-actions"><button class="clear-btn" onclick="clearDone()">Clear completed</button></div>`;
-    renderTaskList('doneList', done);
-  } else {
-    doneArea.innerHTML = '';
-  }
+  const doneArea=document.getElementById('doneArea');
+  if(done.length){
+    doneArea.innerHTML=`<div class="section-label" style="margin-top:8px">Done</div><div class="task-list" id="doneList"></div><div class="footer-actions"><button class="clear-btn" onclick="clearDone()">Clear completed</button></div>`;
+    renderTaskList('doneList',done);
+  }else{doneArea.innerHTML='';}
 }
 
-function renderTaskList(listId, items) {
-  const list = document.getElementById(listId);
-  if (!list || !items.length) return;
-  list.innerHTML = '';
-  items.forEach(task => {
-    const item = document.createElement('div');
-    item.className = 'task-item'+(task.done?' done':'');
-    const authorHtml = task.author ? `<span class="task-author">${escHtml(task.author)}</span>` : '';
-    const tagHtml = task.tagged ? `<span class="task-tag">→ ${escHtml(task.tagged)}</span>` : '';
-    const metaHtml = (authorHtml||tagHtml) ? `<div class="task-meta">${authorHtml}${tagHtml}</div>` : '';
-    item.innerHTML = `
-      <button class="check-btn ${task.done?'checked':''}" onclick="toggle(${task.id},${task.done})">
+function renderTaskList(listId,items){
+  const list=document.getElementById(listId);if(!list||!items.length)return;
+  list.innerHTML='';
+  items.forEach(task=>{
+    const item=document.createElement('div');
+    item.className='task-item'+(task.done?' done':'');
+    const authorHtml=task.author?`<span class="task-author">${escHtml(task.author)}</span>`:'';
+    const tagHtml=task.tagged?`<span class="task-tag">→ ${escHtml(task.tagged)}</span>`:'';
+    const metaHtml=(authorHtml||tagHtml)?`<div class="task-meta">${authorHtml}${tagHtml}</div>`:'';
+    item.innerHTML=`
+      <button class="check-btn${task.done?' checked':''}" onclick="toggle(${task.id},${task.done})">
         <svg width="11" height="9" viewBox="0 0 12 10" fill="none"><path d="M1 5L4.5 8.5L11 1.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="task-body">
         ${metaHtml}
         <span class="task-text">${escHtml(task.text)}</span>
       </div>
-      <button class="del-btn" onclick="deleteTask(${task.id})">×</button>`;
+      <div class="task-actions">
+        <button class="edit-btn" onclick="openEdit(${task.id})" title="Edit task">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </button>
+        <button class="del-btn" onclick="deleteTask(${task.id})" title="Delete task">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+        </button>
+      </div>`;
     list.appendChild(item);
   });
 }
 
 function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function showToast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3000);}
 
-function showToast(msg) {
-  const t = document.createElement('div');
-  t.className='toast'; t.textContent=msg;
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),3000);
-}
-
-// ── INIT ───────────────────────────────────────────
+// Keyboard shortcuts
 document.getElementById('taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')addTask();});
+document.getElementById('editTextarea').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey))saveEdit();});
 
+// Init
 applyColor(myColor);
 renderSwatches();
-
-// Load OneSignal async
-loadOneSignal().then(() => {
-  if (typeof OneSignal !== 'undefined') {
-    OneSignal.init({
-      appId: ONESIGNAL_APP_ID,
-      notifyButton: { enable: false },
-      allowLocalhostAsSecureOrigin: true,
-    }).then(() => {
-      if (OneSignal.Notifications.permission !== 'granted') {
-        document.getElementById('notifBanner').style.display = 'flex';
-      } else {
-        document.getElementById('notifBanner').style.display = 'none';
-        OneSignal.User.PushSubscription.id && localStorage.setItem('osSubId', OneSignal.User.PushSubscription.id);
-      }
-    });
-  }
-});
-
-if (!myName) togglePanel('namePanel');
-
-Promise.all([fetchTasks(), fetchCategories(), fetchNames()]);
-setInterval(() => { fetchTasks(); fetchNames(); }, 5000);
+if(!myName)togglePanel('namePanel');
+initOneSignal();
+Promise.all([fetchTasks(),fetchCategories(),fetchNames()]);
+setInterval(()=>{fetchTasks();fetchNames();},5000);
 </script>
 </body>
 </html>
