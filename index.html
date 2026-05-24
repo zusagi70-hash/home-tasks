@@ -281,13 +281,12 @@ function loadOneSignalScript(){
 async function initOneSignal(){
   await loadOneSignalScript();
   if(typeof OneSignal==='undefined')return;
+  if(osReady)return; // already initialized
   try{
     await OneSignal.init({appId:ONESIGNAL_APP_ID,notifyButton:{enable:false},allowLocalhostAsSecureOrigin:true});
     osReady=true;
-    // Always show banner — user can dismiss by clicking Enable
     const perm=OneSignal.Notifications.permission;
     if(perm==='granted'){
-      // Already granted — just save token silently
       const subId=OneSignal.User.PushSubscription.id;
       if(subId){
         localStorage.setItem('osSubId',subId);
@@ -295,7 +294,10 @@ async function initOneSignal(){
         document.getElementById('notifBanner').style.display='none';
       }
     }
-  }catch(e){console.log('OS init error',e);}
+  }catch(e){
+    // SDK already initialized — treat as ready
+    osReady=true;
+  }
 }
 
 async function enableNotifications(){
@@ -303,8 +305,8 @@ async function enableNotifications(){
     if(!osReady){
       showToast('Setting up notifications…');
       await initOneSignal();
-      if(!osReady){showToast('Could not load notifications. Try refreshing.');return;}
     }
+    if(!osReady){showToast('Could not load notifications. Try refreshing.');return;}
     const perm=await OneSignal.Notifications.requestPermission();
     if(!perm){showToast('Permission not granted — check browser settings');return;}
     await new Promise(r=>setTimeout(r,2000));
