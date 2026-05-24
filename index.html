@@ -283,7 +283,7 @@ async function initOneSignal(){
   if(typeof OneSignal==='undefined')return;
   if(osReady)return; // already initialized
   try{
-    await OneSignal.init({appId:ONESIGNAL_APP_ID,notifyButton:{enable:false},allowLocalhostAsSecureOrigin:true});
+    await OneSignal.init({appId:ONESIGNAL_APP_ID,notifyButton:{enable:false},allowLocalhostAsSecureOrigin:true,serviceWorkerParam:{scope:'/home-tasks/'},serviceWorkerPath:'/home-tasks/OneSignalSDKWorker.js'});
     osReady=true;
     const perm=OneSignal.Notifications.permission;
     if(perm==='granted'){
