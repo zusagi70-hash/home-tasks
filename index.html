@@ -187,8 +187,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <script>
 const SUPABASE_URL = 'https://ynkjrhqozilkodbqbovc.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_Po4L9daBr7lPd0OcsOoHhA_saw1NvVH';
-const ONESIGNAL_APP_ID = '6bb339f5-d3c2-46ed-bfe5-a0f7a1575210';
-const ONESIGNAL_REST_KEY = 'os_v2_app_yrsrfj3e4jdqvdnhsvqkmbxjia3f2lhajaxeqlm65k3opmvnhtjkufsglcwjbucpgszdkkxjnl4zhhblkxywwhv26xpxpjz46i7hq';
+// Native notifications
 const H={'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=representation'};
 
 const COLORS=[
@@ -208,7 +207,6 @@ let myId=localStorage.getItem('userId')||('user_'+Math.random().toString(36).sli
 let myColor=parseInt(localStorage.getItem('userColor')||'0');
 let collapsedCats=JSON.parse(localStorage.getItem('collapsedCats')||'[]');
 let editingTaskId=null;
-let osReady=false;
 localStorage.setItem('userId',myId);
 
 // ── COLOR ──────────────────────────────────────────
@@ -261,81 +259,51 @@ function updatePartnerDisplay(){
   document.getElementById('partnerNameDisplay').textContent=others.length?'👫 Partner: '+others.map(n=>n.name).join(', '):'No partner connected yet.';
 }
 
-// ── NOTIFICATIONS ──────────────────────────────────
-function loadOneSignalScript(){
-  return new Promise(resolve=>{
-    if(typeof OneSignal!=='undefined'){resolve();return;}
-    if(document.getElementById('osScript')){
-      const check=setInterval(()=>{if(typeof OneSignal!=='undefined'){clearInterval(check);resolve();}},200);
-      return;
-    }
-    const s=document.createElement('script');
-    s.id='osScript';
-    s.src='https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js';
-    s.onload=()=>{const check=setInterval(()=>{if(typeof OneSignal!=='undefined'){clearInterval(check);resolve();}},200);};
-    s.onerror=()=>resolve();
-    document.head.appendChild(s);
-  });
-}
-
-async function initOneSignal(){
-  await loadOneSignalScript();
-  if(typeof OneSignal==='undefined')return;
-  if(osReady)return; // already initialized
-  try{
-    await OneSignal.init({appId:ONESIGNAL_APP_ID,notifyButton:{enable:false},allowLocalhostAsSecureOrigin:true,serviceWorkerParam:{scope:'/home-tasks/'},serviceWorkerPath:'/home-tasks/OneSignalSDKWorker.js'});
-    osReady=true;
-    const perm=OneSignal.Notifications.permission;
-    if(perm==='granted'){
-      const subId=OneSignal.User.PushSubscription.id;
-      if(subId){
-        localStorage.setItem('osSubId',subId);
-        await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`,{method:'POST',headers:{...H,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({token:subId})});
-        document.getElementById('notifBanner').style.display='none';
-      }
-    }
-  }catch(e){
-    // SDK already initialized — treat as ready
-    osReady=true;
-  }
-}
-
+// ── NOTIFICATIONS (Native Browser) ─────────────────
 async function enableNotifications(){
   try{
-    if(!osReady){
-      showToast('Setting up notifications…');
-      await initOneSignal();
-    }
-    if(!osReady){showToast('Could not load notifications. Try refreshing.');return;}
-    const perm=await OneSignal.Notifications.requestPermission();
-    if(!perm){showToast('Permission not granted — check browser settings');return;}
-    await new Promise(r=>setTimeout(r,2000));
-    const subId=OneSignal.User.PushSubscription.id;
-    if(subId){
-      localStorage.setItem('osSubId',subId);
-      await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens`,{method:'POST',headers:{...H,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({token:subId})});
+    if(!('Notification' in window)){showToast('Notifications not supported');return;}
+    const perm = await Notification.requestPermission();
+    if(perm==='granted'){
       document.getElementById('notifBanner').style.display='none';
+      localStorage.setItem('notifEnabled','true');
       showToast('🔔 Notifications enabled!');
-    }else{
-      showToast('Please try again — tap Enable once more');
+      new Notification('🏡 Our Home',{body:'Notifications are working!'});
+    } else {
+      showToast('Please allow notifications in browser settings');
     }
   }catch(e){showToast('Error: '+e.message);}
 }
 
-async function sendNotification(taskText,taggedName){
+function showNativeNotification(title, body){
+  if(Notification.permission==='granted' && localStorage.getItem('notifEnabled')==='true'){
+    new Notification(title,{body, icon:'https://zusagi70-hash.github.io/home-tasks/icon.png'});
+  }
+}
+
+// Poll for new tasks and notify
+let lastTaskIds = [];
+async function checkForNewTasks(){
   try{
-    const mySubId=localStorage.getItem('osSubId');
-    const res=await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens?select=token`,{headers:H});
-    const tokens=await res.json();
-    const others=tokens.filter(t=>t.token!==mySubId).map(t=>t.token);
-    if(!others.length)return;
-    const title=taggedName?`🏡 ${myName||'Someone'} tagged you!`:`🏡 New task!`;
-    await fetch('https://onesignal.com/api/v1/notifications',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Basic '+ONESIGNAL_REST_KEY},
-      body:JSON.stringify({app_id:ONESIGNAL_APP_ID,include_subscription_uuids:others,headings:{en:title},contents:{en:taskText}})
-    });
-  }catch(e){}
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/tasks?order=created_at.asc`,{headers:H});
+    const newTasks = await res.json();
+    if(lastTaskIds.length > 0){
+      const newOnes = newTasks.filter(t => !lastTaskIds.includes(t.id) && t.author !== myName);
+      newOnes.forEach(t => {
+        const title = t.tagged === myName ? `🏡 ${t.author||'Someone'} tagged you!` : `🏡 New task added!`;
+        showNativeNotification(title, t.text);
+      });
+    }
+    lastTaskIds = newTasks.map(t=>t.id);
+    tasks = newTasks;
+    setStatus('connected');
+    render();
+  }catch(e){setStatus('error');}
+}
+
+async function sendNotification(taskText, taggedName){
+  // Native notifications are shown via polling on other devices
+  // Nothing to send — checkForNewTasks() handles it
 }
 
 // ── CATEGORIES ─────────────────────────────────────
@@ -389,19 +357,19 @@ async function addTask(){
   document.getElementById('addBtn').disabled=true;
   try{
     await fetch(`${SUPABASE_URL}/rest/v1/tasks`,{method:'POST',headers:H,body:JSON.stringify({text,done:false,author:myName||null,tagged:tag||null,category:(catId&&catId!=='__new__')?catId:null})});
-    await sendNotification(text,tag);await fetchTasks();
+    await sendNotification(text,tag);await checkForNewTasks();
   }catch(e){setStatus('error');}
   document.getElementById('addBtn').disabled=false;
 }
 async function toggle(id,currentDone){
-  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`,{method:'PATCH',headers:H,body:JSON.stringify({done:!currentDone})});await fetchTasks();}catch(e){setStatus('error');}
+  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`,{method:'PATCH',headers:H,body:JSON.stringify({done:!currentDone})});await checkForNewTasks();}catch(e){setStatus('error');}
 }
 async function deleteTask(id){
-  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`,{method:'DELETE',headers:H});await fetchTasks();}catch(e){setStatus('error');}
+  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${id}`,{method:'DELETE',headers:H});await checkForNewTasks();}catch(e){setStatus('error');}
 }
 async function clearDone(){
   const ids=tasks.filter(t=>t.done).map(t=>t.id);if(!ids.length)return;
-  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=in.(${ids.join(',')})`,{method:'DELETE',headers:H});await fetchTasks();}catch(e){setStatus('error');}
+  try{await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=in.(${ids.join(',')})`,{method:'DELETE',headers:H});await checkForNewTasks();}catch(e){setStatus('error');}
 }
 
 // ── EDIT ───────────────────────────────────────────
@@ -421,7 +389,7 @@ async function saveEdit(){
   try{
     await fetch(`${SUPABASE_URL}/rest/v1/tasks?id=eq.${editingTaskId}`,{method:'PATCH',headers:H,body:JSON.stringify({text})});
     document.getElementById('editModal').style.display='none';
-    editingTaskId=null;await fetchTasks();
+    editingTaskId=null;await checkForNewTasks();
   }catch(e){showToast('Could not save');}
 }
 
@@ -528,9 +496,9 @@ document.getElementById('editTextarea').addEventListener('keydown',e=>{if(e.key=
 applyColor(myColor);
 renderSwatches();
 if(!myName)togglePanel('namePanel');
-initOneSignal();
-Promise.all([fetchTasks(),fetchCategories(),fetchNames()]);
-setInterval(()=>{fetchTasks();fetchNames();},5000);
+if(localStorage.getItem('notifEnabled')==='true'){document.getElementById('notifBanner').style.display='none';}
+Promise.all([checkForNewTasks(),fetchCategories(),fetchNames()]);
+setInterval(()=>{checkForNewTasks();fetchNames();},5000);
 </script>
 </body>
 </html>
