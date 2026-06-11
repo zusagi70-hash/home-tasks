@@ -364,7 +364,7 @@ function renderContent(){
   items.sort((a,b)=>a.date.localeCompare(b.date));
   const grouped={};
   items.forEach(item=>{if(!grouped[item.date])grouped[item.date]=[];grouped[item.date].push(item);});
-  Object.keys(grouped).forEach(d=>{grouped[d].sort((a,b)=>({high:0,medium:1,low:2}[a.impact]-({high:0,medium:1,low:2}[b.impact]));});
+  Object.keys(grouped).forEach(d=>{grouped[d].sort((a,b)=>({high:0,medium:1,low:2}[a.impact])-({high:0,medium:1,low:2}[b.impact]));});
   const high=items.filter(e=>e.impact==='high').length;
   let html=`<div class="section-header"><span class="section-title">${items.length} Reports</span><span class="section-count">🔴 ${high} high impact</span></div>`;
   Object.keys(grouped).sort().forEach(date=>{
