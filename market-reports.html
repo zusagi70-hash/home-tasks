@@ -17,11 +17,10 @@
   --purple:#8B5CF6;--purple-light:#2E1065;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:32px 20px 80px;}
-.container{max-width:860px;margin:0 auto;}
+.container{max-width:900px;margin:0 auto;}
 
-/* HEADER */
 .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:12px;}
-.title{font-family:'Lora',serif;font-size:28px;font-weight:400;color:var(--text);}
+.title{font-family:'Lora',serif;font-size:28px;font-weight:400;}
 .title span{color:var(--accent);}
 .header-right{display:flex;align-items:center;gap:10px;}
 .last-updated{font-size:12px;color:var(--muted);}
@@ -29,78 +28,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .refresh-btn:hover{border-color:var(--accent);}
 .refresh-btn.spinning svg{animation:spin 1s linear infinite;}
 @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-
-/* DATE RANGE */
 .date-range{font-size:13px;color:var(--muted);margin-bottom:24px;}
 .date-range strong{color:var(--text);}
 
-/* TABS */
 .tabs{display:flex;gap:4px;margin-bottom:24px;background:var(--surface);border-radius:10px;padding:4px;width:fit-content;}
 .tab{padding:8px 18px;border-radius:7px;font-size:14px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all 0.2s;font-family:'DM Sans',sans-serif;}
 .tab.active{background:var(--accent);color:#fff;}
 
-/* SUMMARY CARDS */
 .summary-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:28px;}
 .summary-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;}
 .summary-card .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;}
 .summary-card .value{font-size:26px;font-weight:600;}
 .summary-card .sub{font-size:12px;color:var(--muted);margin-top:3px;}
 .value.red{color:var(--red);}
-.value.yellow{color:var(--yellow);}
-.value.green{color:var(--green);}
 .value.blue{color:var(--accent);}
+.value.green{color:var(--green);}
+.value.purple{color:var(--purple);}
 
-/* SECTION */
-.section{margin-bottom:32px;}
-.section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.section-title{font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
-.section-count{background:var(--surface2);border-radius:99px;padding:2px 10px;font-size:12px;color:var(--muted);}
-
-/* DAY GROUP */
-.day-group{margin-bottom:16px;}
-.day-label{font-size:13px;font-weight:500;color:var(--muted);margin-bottom:8px;padding-left:4px;display:flex;align-items:center;gap:8px;}
-.day-label .today-badge{background:var(--accent);color:#fff;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:600;}
-.day-label .tomorrow-badge{background:var(--yellow);color:#000;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:600;}
-
-/* REPORT CARD */
-.report-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:8px;display:flex;align-items:center;gap:14px;transition:border-color 0.2s;}
-.report-card:hover{border-color:var(--accent);}
-.impact-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.impact-dot.high{background:var(--red);}
-.impact-dot.medium{background:var(--yellow);}
-.impact-dot.low{background:var(--green);}
-.report-info{flex:1;min-width:0;}
-.report-name{font-size:15px;font-weight:500;color:var(--text);}
-.report-meta{display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;}
-.report-time{font-size:12px;color:var(--muted);}
-.report-category{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500;}
-.cat-earnings{background:var(--accent-light);color:var(--accent);}
-.cat-economic{background:var(--purple-light);color:var(--purple);}
-.cat-fed{background:var(--red-light);color:var(--red);}
-.report-right{text-align:right;flex-shrink:0;}
-.report-estimate{font-size:13px;color:var(--muted);}
-.report-estimate span{color:var(--text);font-weight:500;}
-.impact-badge{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600;margin-top:4px;display:inline-block;}
-.impact-badge.high{background:var(--red-light);color:var(--red);}
-.impact-badge.medium{background:var(--yellow-light);color:var(--yellow);}
-.impact-badge.low{background:var(--green-light);color:var(--green);}
-
-/* TICKER */
-.ticker-row{display:flex;align-items:center;gap:10px;}
-.ticker{font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-light);padding:3px 8px;border-radius:6px;}
-.eps-row{font-size:12px;color:var(--muted);margin-top:4px;}
-.eps-row span{color:var(--text);}
-
-/* LOADING / EMPTY */
-.loading{text-align:center;padding:60px 20px;color:var(--muted);}
-.loading-spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
-.empty{text-align:center;padding:40px;color:var(--muted);font-size:14px;}
-
-/* NOTIFICATION BANNER */
-.notif-banner{background:var(--accent-light);border:1px solid var(--accent);border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:var(--accent);display:flex;align-items:center;justify-content:space-between;gap:12px;}
-.notif-banner button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;}
-
-/* WATCHLIST */
 .watchlist-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:24px;}
 .watchlist-title{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
 .watchlist-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
@@ -111,19 +55,121 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .watchlist-add input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;text-transform:uppercase;}
 .watchlist-add input:focus{border-color:var(--accent);}
 .watchlist-add input::placeholder{color:var(--muted);text-transform:none;}
-.watchlist-add button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.watchlist-add button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;}
 
-/* ERROR */
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.section-title{font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.section-count{background:var(--surface2);border-radius:99px;padding:2px 10px;font-size:12px;color:var(--muted);}
+
+.day-group{margin-bottom:16px;}
+.day-label{font-size:13px;font-weight:500;color:var(--muted);margin-bottom:8px;padding-left:4px;display:flex;align-items:center;gap:8px;}
+.today-badge{background:var(--accent);color:#fff;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:600;}
+.tomorrow-badge{background:var(--yellow);color:#000;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:600;}
+
+/* REPORT CARD */
+.report-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;transition:border-color 0.2s,background 0.2s;cursor:pointer;position:relative;}
+.report-card:hover{border-color:var(--accent);background:var(--surface2);}
+.report-card.expanded{border-color:var(--accent);border-radius:12px 12px 0 0;border-bottom:none;}
+.impact-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.impact-dot.high{background:var(--red);}
+.impact-dot.medium{background:var(--yellow);}
+.impact-dot.low{background:var(--green);}
+.report-info{flex:1;min-width:0;}
+.report-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.ticker{font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-light);padding:3px 8px;border-radius:6px;}
+.report-name{font-size:15px;font-weight:500;color:var(--text);}
+.report-meta{display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap;}
+.report-time{font-size:12px;color:var(--muted);}
+.report-category{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500;}
+.cat-earnings{background:var(--accent-light);color:var(--accent);}
+.cat-economic{background:var(--purple-light);color:var(--purple);}
+.cat-fed{background:var(--red-light);color:var(--red);}
+.eps-row{font-size:12px;color:var(--muted);margin-top:4px;}
+.eps-row span{color:var(--text);}
+.report-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.impact-badge{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:600;}
+.impact-badge.high{background:var(--red-light);color:var(--red);}
+.impact-badge.medium{background:var(--yellow-light);color:var(--yellow);}
+.impact-badge.low{background:var(--green-light);color:var(--green);}
+
+/* EXTERNAL LINK ICON */
+.ext-link{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);text-decoration:none;transition:all 0.2s;flex-shrink:0;}
+.ext-link:hover{background:var(--accent-light);border-color:var(--accent);color:var(--accent);}
+
+/* PREVIEW PANEL */
+.preview-panel{background:var(--surface2);border:1px solid var(--accent);border-top:none;border-radius:0 0 12px 12px;padding:16px;margin-bottom:8px;animation:slideDown 0.2s ease;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.preview-loading{text-align:center;padding:20px;color:var(--muted);font-size:13px;}
+.preview-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.company-logo{width:40px;height:40px;border-radius:8px;object-fit:contain;background:var(--surface);border:1px solid var(--border);}
+.company-logo-placeholder{width:40px;height:40px;border-radius:8px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--accent);flex-shrink:0;}
+.preview-name{font-size:16px;font-weight:500;}
+.preview-industry{font-size:12px;color:var(--muted);margin-top:2px;}
+.preview-stats{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;padding:12px;background:var(--surface);border-radius:10px;}
+.preview-stat{display:flex;flex-direction:column;gap:2px;}
+.preview-stat .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;}
+.preview-stat .val{font-size:14px;font-weight:500;color:var(--text);}
+.preview-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.preview-news{margin-top:4px;}
+.preview-news-title{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.news-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.news-item:last-child{border-bottom:none;}
+.news-item a{font-size:13px;color:var(--text);text-decoration:none;line-height:1.4;flex:1;}
+.news-item a:hover{color:var(--accent);}
+.news-date{font-size:11px;color:var(--muted);white-space:nowrap;margin-top:2px;}
+.preview-footer{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.preview-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:all 0.2s;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{opacity:0.85;}
+.btn-secondary{background:var(--surface);border:1px solid var(--border);color:var(--text);}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+
+/* ECONOMIC PREVIEW */
+.econ-preview{padding:4px 0;}
+.econ-stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px;}
+.econ-stat{background:var(--surface);border-radius:8px;padding:10px 12px;}
+.econ-stat .label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.econ-stat .val{font-size:16px;font-weight:600;color:var(--text);}
+.econ-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+.loading{text-align:center;padding:60px 20px;color:var(--muted);}
+.loading-spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+.empty{text-align:center;padding:40px;color:var(--muted);font-size:14px;}
 .error-msg{background:var(--red-light);border:1px solid var(--red);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--red);margin-bottom:16px;}
+.notif-banner{background:var(--accent-light);border:1px solid var(--accent);border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:var(--accent);display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.notif-banner button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;max-width:520px;max-height:80vh;overflow-y:auto;}
+.modal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px;}
+.modal-title{font-size:18px;font-weight:500;}
+.modal-close{background:none;border:none;cursor:pointer;color:var(--muted);font-size:22px;line-height:1;padding:0;flex-shrink:0;}
+.modal-close:hover{color:var(--text);}
+.modal-section{margin-bottom:16px;}
+.modal-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.modal-value{font-size:14px;color:var(--text);line-height:1.6;}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.modal-stat{background:var(--surface2);border-radius:10px;padding:12px;}
+.modal-stat .stat-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.modal-stat .stat-value{font-size:16px;font-weight:600;}
+.modal-link{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:500;margin-top:4px;transition:opacity 0.15s;}
+.modal-link:hover{opacity:0.85;}
+.modal-link.secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.modal-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.modal-loading{text-align:center;padding:24px;color:var(--muted);}
+.modal-tag{display:inline-block;background:var(--surface2);border-radius:6px;padding:3px 10px;font-size:12px;color:var(--muted);margin:2px;}
+
+/* EXTERNAL LINK ICON on cards */
+.card-link-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:4px 6px;border-radius:6px;transition:color 0.15s,background 0.15s;display:flex;align-items:center;flex-shrink:0;}
+.card-link-btn:hover{color:var(--accent);background:var(--accent-light);}
 </style>
 </head>
 <body>
 <div class="container">
 
   <div class="header">
-    <div>
-      <div class="title">📈 Market <span>Reports</span></div>
-    </div>
+    <div class="title">📈 Market <span>Reports</span></div>
     <div class="header-right">
       <span class="last-updated" id="lastUpdated">Loading…</span>
       <button class="refresh-btn" id="refreshBtn" onclick="loadAll()">
@@ -140,7 +186,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <button onclick="enableNotifications()">Enable alerts</button>
   </div>
 
-  <!-- Watchlist -->
   <div class="watchlist-section">
     <div class="watchlist-title">⭐ My Watchlist</div>
     <div class="watchlist-chips" id="watchlistChips"></div>
@@ -150,10 +195,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
 
-  <!-- Summary -->
   <div class="summary-row" id="summaryRow"></div>
 
-  <!-- Tabs -->
   <div class="tabs">
     <button class="tab active" onclick="switchTab('all',this)">All Reports</button>
     <button class="tab" onclick="switchTab('earnings',this)">Earnings</button>
@@ -164,306 +207,489 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="errorMsg" class="error-msg" style="display:none;"></div>
   <div id="mainContent"><div class="loading"><div class="loading-spinner"></div>Loading reports…</div></div>
 
+
+<!-- Preview Modal -->
+<div class="modal-overlay" id="previewModal" style="display:none" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Loading…</div>
+      <button class="modal-close" onclick="document.getElementById('previewModal').style.display='none'">×</button>
+    </div>
+    <div id="modalBody"><div class="modal-loading">Fetching report details…</div></div>
+  </div>
+</div>
+
 </div>
 
 <script>
 const FINNHUB_KEY = 'd8iq7dhr01qtcvnt63g0d8iq7dhr01qtcvnt63gg';
 let allEarnings = [], allEconomic = [], currentTab = 'all';
 let watchlist = JSON.parse(localStorage.getItem('watchlist') || '["AAPL","NVDA","MSFT","AVGO","TSLA"]');
-let notifEnabled = localStorage.getItem('marketNotifEnabled') === 'true';
+let expandedCard = null;
+let profileCache = {};
+let newsCache = {};
 
-// ── DATES ──────────────────────────────────────────
 function getDateRange() {
   const today = new Date();
   const twoWeeks = new Date();
   twoWeeks.setDate(today.getDate() + 14);
   return {
-    from: fmt(today),
-    to: fmt(twoWeeks),
+    from: fmt(today), to: fmt(twoWeeks),
     fromDisplay: today.toLocaleDateString('en-US',{month:'long',day:'numeric'}),
     toDisplay: twoWeeks.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})
   };
 }
-
-function fmt(d) {
-  return d.toISOString().split('T')[0];
-}
-
-function isToday(dateStr) {
-  return dateStr === fmt(new Date());
-}
-
-function isTomorrow(dateStr) {
-  const t = new Date(); t.setDate(t.getDate()+1);
-  return dateStr === fmt(t);
-}
-
-function formatDisplayDate(dateStr) {
-  const d = new Date(dateStr+'T00:00:00');
-  return d.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
-}
+function fmt(d){return d.toISOString().split('T')[0];}
+function isToday(s){return s===fmt(new Date());}
+function isTomorrow(s){const t=new Date();t.setDate(t.getDate()+1);return s===fmt(t);}
+function formatDisplayDate(s){const d=new Date(s+'T00:00:00');return d.toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});}
+function timeAgo(ts){const d=new Date(ts*1000);return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
 
 // ── WATCHLIST ──────────────────────────────────────
-function saveWatchlist() { localStorage.setItem('watchlist', JSON.stringify(watchlist)); }
-
-function renderWatchlist() {
-  const el = document.getElementById('watchlistChips');
-  el.innerHTML = '';
-  watchlist.forEach(ticker => {
-    const chip = document.createElement('div');
-    chip.className = 'watchlist-chip';
-    chip.innerHTML = `${ticker} <button onclick="removeTicker('${ticker}')">×</button>`;
+function saveWatchlist(){localStorage.setItem('watchlist',JSON.stringify(watchlist));}
+function renderWatchlist(){
+  const el=document.getElementById('watchlistChips');el.innerHTML='';
+  watchlist.forEach(t=>{
+    const chip=document.createElement('div');chip.className='watchlist-chip';
+    chip.innerHTML=`${t} <button onclick="removeTicker('${t}')">×</button>`;
     el.appendChild(chip);
   });
 }
-
-function addTicker() {
-  const input = document.getElementById('tickerInput');
-  const val = input.value.trim().toUpperCase();
-  if (!val || watchlist.includes(val)) { input.value=''; return; }
-  watchlist.push(val);
-  saveWatchlist();
-  renderWatchlist();
-  input.value = '';
-  renderContent();
+function addTicker(){
+  const input=document.getElementById('tickerInput');
+  const val=input.value.trim().toUpperCase();
+  if(!val||watchlist.includes(val)){input.value='';return;}
+  watchlist.push(val);saveWatchlist();renderWatchlist();input.value='';renderContent();
 }
+function removeTicker(t){watchlist=watchlist.filter(x=>x!==t);saveWatchlist();renderWatchlist();renderContent();}
 
-function removeTicker(t) {
-  watchlist = watchlist.filter(x=>x!==t);
-  saveWatchlist();
-  renderWatchlist();
-  renderContent();
-}
-
-// ── FETCH DATA ─────────────────────────────────────
-async function fetchEarnings(from, to) {
-  const url = `https://finnhub.io/api/v1/calendar/earnings?from=${from}&to=${to}&token=${FINNHUB_KEY}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return (data.earningsCalendar || []).map(e => ({
-    type: 'earnings',
-    date: e.date,
-    name: e.company || e.symbol,
-    ticker: e.symbol,
-    time: e.hour === 'bmo' ? '🌅 Before Open' : e.hour === 'amc' ? '🌙 After Close' : '🕐 During Hours',
-    epsEstimate: e.epsEstimate,
-    revenueEstimate: e.revenueEstimate,
-    impact: watchlist.includes(e.symbol) ? 'high' : 'medium',
-    category: 'earnings'
+// ── FETCH ──────────────────────────────────────────
+async function fetchEarnings(from,to){
+  const res=await fetch(`https://finnhub.io/api/v1/calendar/earnings?from=${from}&to=${to}&token=${FINNHUB_KEY}`);
+  const data=await res.json();
+  return(data.earningsCalendar||[]).map(e=>({
+    type:'earnings',date:e.date,name:e.company||e.symbol,ticker:e.symbol,
+    time:e.hour==='bmo'?'🌅 Before Open':e.hour==='amc'?'🌙 After Close':'🕐 During Hours',
+    epsEstimate:e.epsEstimate,revenueEstimate:e.revenueEstimate,
+    impact:watchlist.includes(e.symbol)?'high':'medium',category:'earnings'
   }));
 }
 
-async function fetchEconomic(from, to) {
-  const url = `https://finnhub.io/api/v1/calendar/economic?token=${FINNHUB_KEY}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  const events = (data.economicCalendar || []).filter(e => e.time >= from && e.time <= to);
-  
-  // Map impact
-  const highImpact = ['nonfarm','unemployment','cpi','fed','fomc','gdp','pce','ppi','retail sales','interest rate','jobs'];
-  
-  return events.map(e => {
-    const nameLower = (e.event||'').toLowerCase();
-    const isHigh = highImpact.some(k => nameLower.includes(k));
-    const isFed = nameLower.includes('fed') || nameLower.includes('fomc');
-    return {
-      type: 'economic',
-      date: e.time,
-      name: e.event,
-      country: e.country,
-      estimate: e.estimate,
-      previous: e.prev,
-      unit: e.unit,
-      impact: isHigh ? 'high' : 'medium',
-      category: isFed ? 'fed' : 'economic'
-    };
-  }).filter(e => e.country === 'US' || !e.country);
+async function fetchEconomic(from,to){
+  const res=await fetch(`https://finnhub.io/api/v1/calendar/economic?token=${FINNHUB_KEY}`);
+  const data=await res.json();
+  const events=(data.economicCalendar||[]).filter(e=>e.time>=from&&e.time<=to);
+  const highKeys=['nonfarm','unemployment','cpi','fed','fomc','gdp','pce','ppi','retail sales','interest rate','jobs','payroll','inflation'];
+  return events.map(e=>{
+    const nl=(e.event||'').toLowerCase();
+    const isHigh=highKeys.some(k=>nl.includes(k));
+    const isFed=nl.includes('fed')||nl.includes('fomc');
+    return{type:'economic',date:e.time,name:e.event,country:e.country,
+      estimate:e.estimate,previous:e.prev,unit:e.unit,
+      impact:isHigh?'high':'medium',category:isFed?'fed':'economic'};
+  }).filter(e=>e.country==='US'||!e.country);
 }
 
-async function loadAll() {
-  const btn = document.getElementById('refreshBtn');
-  btn.classList.add('spinning');
-  document.getElementById('errorMsg').style.display = 'none';
-  document.getElementById('mainContent').innerHTML = '<div class="loading"><div class="loading-spinner"></div>Fetching latest reports…</div>';
+async function fetchCompanyProfile(ticker){
+  if(profileCache[ticker])return profileCache[ticker];
+  try{
+    const res=await fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${FINNHUB_KEY}`);
+    const data=await res.json();
+    profileCache[ticker]=data;return data;
+  }catch(e){return null;}
+}
 
-  const {from, to, fromDisplay, toDisplay} = getDateRange();
-  document.getElementById('dateRange').innerHTML = `Showing reports from <strong>${fromDisplay}</strong> to <strong>${toDisplay}</strong>`;
+async function fetchCompanyNews(ticker){
+  if(newsCache[ticker])return newsCache[ticker];
+  try{
+    const to=fmt(new Date());
+    const from=new Date();from.setDate(from.getDate()-7);
+    const res=await fetch(`https://finnhub.io/api/v1/company-news?symbol=${ticker}&from=${fmt(from)}&to=${to}&token=${FINNHUB_KEY}`);
+    const data=await res.json();
+    newsCache[ticker]=(data||[]).slice(0,3);return newsCache[ticker];
+  }catch(e){return[];}
+}
 
-  try {
-    [allEarnings, allEconomic] = await Promise.all([
-      fetchEarnings(from, to),
-      fetchEconomic(from, to)
-    ]);
+async function fetchEarningsHistory(ticker){
+  try{
+    const res=await fetch(`https://finnhub.io/api/v1/stock/earnings?symbol=${ticker}&limit=4&token=${FINNHUB_KEY}`);
+    return await res.json();
+  }catch(e){return[];}
+}
 
-    const now = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-    document.getElementById('lastUpdated').textContent = `Updated ${now}`;
-    renderSummary();
-    renderContent();
-    if (notifEnabled) scheduleNotifications();
-  } catch(e) {
-    document.getElementById('errorMsg').textContent = 'Error loading data: ' + e.message;
-    document.getElementById('errorMsg').style.display = 'block';
-    document.getElementById('mainContent').innerHTML = '<div class="empty">Could not load reports. Try refreshing.</div>';
+async function loadAll(){
+  const btn=document.getElementById('refreshBtn');btn.classList.add('spinning');
+  document.getElementById('errorMsg').style.display='none';
+  document.getElementById('mainContent').innerHTML='<div class="loading"><div class="loading-spinner"></div>Fetching latest reports…</div>';
+  expandedCard=null;profileCache={};newsCache={};
+  const{from,to,fromDisplay,toDisplay}=getDateRange();
+  document.getElementById('dateRange').innerHTML=`Showing <strong>${fromDisplay}</strong> → <strong>${toDisplay}</strong>`;
+  try{
+    [allEarnings,allEconomic]=await Promise.all([fetchEarnings(from,to),fetchEconomic(from,to)]);
+    document.getElementById('lastUpdated').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    renderSummary();renderContent();
+  }catch(e){
+    document.getElementById('errorMsg').textContent='Error: '+e.message;
+    document.getElementById('errorMsg').style.display='block';
+    document.getElementById('mainContent').innerHTML='<div class="empty">Could not load. Try refreshing.</div>';
   }
-
   btn.classList.remove('spinning');
 }
 
 // ── SUMMARY ────────────────────────────────────────
-function renderSummary() {
-  const all = [...allEarnings, ...allEconomic];
-  const high = all.filter(e=>e.impact==='high').length;
-  const earnings = allEarnings.length;
-  const economic = allEconomic.length;
-  const watchlistCount = allEarnings.filter(e=>watchlist.includes(e.ticker)).length;
-
-  document.getElementById('summaryRow').innerHTML = `
+function renderSummary(){
+  const all=[...allEarnings,...allEconomic];
+  const high=all.filter(e=>e.impact==='high').length;
+  document.getElementById('summaryRow').innerHTML=`
     <div class="summary-card"><div class="label">High Impact</div><div class="value red">${high}</div><div class="sub">Next 2 weeks</div></div>
-    <div class="summary-card"><div class="label">Earnings</div><div class="value blue">${earnings}</div><div class="sub">Company reports</div></div>
-    <div class="summary-card"><div class="label">Economic</div><div class="value purple" style="color:var(--purple)">${economic}</div><div class="sub">US data releases</div></div>
-    <div class="summary-card"><div class="label">Watchlist</div><div class="value green">${watchlistCount}</div><div class="sub">Your stocks</div></div>
-  `;
+    <div class="summary-card"><div class="label">Earnings</div><div class="value blue">${allEarnings.length}</div><div class="sub">Company reports</div></div>
+    <div class="summary-card"><div class="label">Economic</div><div class="value purple">${allEconomic.length}</div><div class="sub">US data releases</div></div>
+    <div class="summary-card"><div class="label">Watchlist</div><div class="value green">${allEarnings.filter(e=>watchlist.includes(e.ticker)).length}</div><div class="sub">Your stocks</div></div>`;
 }
 
 // ── RENDER ─────────────────────────────────────────
-function switchTab(tab, el) {
-  currentTab = tab;
+function switchTab(tab,el){
+  currentTab=tab;expandedCard=null;
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
+  el.classList.add('active');renderContent();
+}
+
+function renderContent(){
+  let items=[];
+  if(currentTab==='all')items=[...allEarnings,...allEconomic];
+  else if(currentTab==='earnings')items=allEarnings;
+  else if(currentTab==='economic')items=allEconomic;
+  else if(currentTab==='watchlist')items=allEarnings.filter(e=>watchlist.includes(e.ticker));
+  if(!items.length){document.getElementById('mainContent').innerHTML='<div class="empty">No reports found.</div>';return;}
+  items.sort((a,b)=>a.date.localeCompare(b.date));
+  const grouped={};
+  items.forEach(item=>{if(!grouped[item.date])grouped[item.date]=[];grouped[item.date].push(item);});
+  Object.keys(grouped).forEach(d=>{grouped[d].sort((a,b)=>({high:0,medium:1,low:2}[a.impact]-({high:0,medium:1,low:2}[b.impact]));});
+  const high=items.filter(e=>e.impact==='high').length;
+  let html=`<div class="section-header"><span class="section-title">${items.length} Reports</span><span class="section-count">🔴 ${high} high impact</span></div>`;
+  Object.keys(grouped).sort().forEach(date=>{
+    const tb=isToday(date)?'<span class="today-badge">TODAY</span>':'';
+    const tmb=isTomorrow(date)?'<span class="tomorrow-badge">TOMORROW</span>':'';
+    html+=`<div class="day-group"><div class="day-label">${formatDisplayDate(date)} ${tb}${tmb}</div>`;
+    grouped[date].forEach((item,i)=>{
+      const cardId=`card-${date}-${i}`;
+      const isExpanded=expandedCard===cardId;
+      html+=renderCardHTML(item,cardId,isExpanded);
+      if(isExpanded)html+=`<div class="preview-panel" id="preview-${cardId}"><div class="preview-loading">Loading preview…</div></div>`;
+    });
+    html+='</div>';
+  });
+  document.getElementById('mainContent').innerHTML=html;
+  if(expandedCard){
+    const item=getItemByCardId(expandedCard,grouped);
+    if(item)loadPreview(expandedCard,item);
+  }
+}
+
+function getItemByCardId(cardId,grouped){
+  for(const date of Object.keys(grouped)){
+    const parts=cardId.split('-');const idx=parseInt(parts[parts.length-1]);
+    if(cardId.startsWith('card-'+date+'-'))return grouped[date][idx];
+  }return null;
+}
+
+function renderCardHTML(item,cardId,isExpanded){
+  const extUrl=item.type==='earnings'
+    ?`https://finance.yahoo.com/quote/${item.ticker}`
+    :`https://tradingeconomics.com/united-states/${(item.name||'').toLowerCase().replace(/\s+/g,'-')}`;
+  
+  const isWatched=item.ticker&&watchlist.includes(item.ticker);
+  
+  let infoHtml='';
+  if(item.type==='earnings'){
+    const eps=item.epsEstimate?`Est. EPS: <span>$${item.epsEstimate}</span>`:'';
+    const rev=item.revenueEstimate?`Est. Rev: <span>$${(item.revenueEstimate/1e9).toFixed(1)}B</span>`:'';
+    infoHtml=`
+      <div class="report-top">
+        <span class="ticker">${item.ticker}</span>
+        <span class="report-name">${item.name}${isWatched?' ⭐':''}</span>
+      </div>
+      <div class="report-meta">
+        <span class="report-time">${item.time}</span>
+        <span class="report-category cat-earnings">Earnings</span>
+      </div>
+      ${eps||rev?`<div class="eps-row">${eps}${eps&&rev?' · ':''}${rev}</div>`:''}`;
+  }else{
+    const est=item.estimate?`Est: <span>${item.estimate}${item.unit||''}</span>`:'';
+    const prev=item.previous?`Prev: <span>${item.previous}${item.unit||''}</span>`:'';
+    infoHtml=`
+      <div class="report-top"><span class="report-name">${item.name}</span></div>
+      <div class="report-meta">
+        <span class="report-category ${item.category==='fed'?'cat-fed':'cat-economic'}">${item.category==='fed'?'FED':'Economic'}</span>
+        ${item.country?`<span class="report-time">🇺🇸 US</span>`:''}
+      </div>
+      ${est||prev?`<div class="eps-row">${est}${est&&prev?' · ':''}${prev}</div>`:''}`;
+  }
+
+  return `<div class="report-card${isExpanded?' expanded':''}" id="${cardId}" onclick="toggleCard('${cardId}')">
+    <div class="impact-dot ${item.impact}"></div>
+    <div class="report-info">${infoHtml}</div>
+    <div class="report-right">
+      <div class="impact-badge ${item.impact}">${item.impact.toUpperCase()}</div>
+      <a class="ext-link" href="${extUrl}" target="_blank" onclick="event.stopPropagation()" title="View on ${item.type==='earnings'?'Yahoo Finance':'Trading Economics'}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+  </div>`;
+}
+
+function toggleCard(cardId){
+  if(expandedCard===cardId){expandedCard=null;}
+  else{expandedCard=cardId;}
   renderContent();
 }
 
-function renderContent() {
-  let items = [];
-  if (currentTab === 'all') items = [...allEarnings, ...allEconomic];
-  else if (currentTab === 'earnings') items = allEarnings;
-  else if (currentTab === 'economic') items = allEconomic;
-  else if (currentTab === 'watchlist') items = allEarnings.filter(e=>watchlist.includes(e.ticker));
-
-  if (!items.length) {
-    document.getElementById('mainContent').innerHTML = '<div class="empty">No reports found for this view.</div>';
-    return;
-  }
-
-  // Sort by date
-  items.sort((a,b) => a.date.localeCompare(b.date));
-
-  // Group by date
-  const grouped = {};
-  items.forEach(item => {
-    if (!grouped[item.date]) grouped[item.date] = [];
-    grouped[item.date].push(item);
-  });
-
-  // Sort each group: high impact first
-  Object.keys(grouped).forEach(date => {
-    grouped[date].sort((a,b) => {
-      const order = {high:0,medium:1,low:2};
-      return order[a.impact] - order[b.impact];
-    });
-  });
-
-  let html = '';
-  const highCount = items.filter(e=>e.impact==='high').length;
-  html += `<div class="section-header"><span class="section-title">${items.length} Reports</span><span class="section-count">🔴 ${highCount} high impact</span></div>`;
-
-  Object.keys(grouped).sort().forEach(date => {
-    const todayBadge = isToday(date) ? '<span class="today-badge">TODAY</span>' : '';
-    const tomorrowBadge = isTomorrow(date) ? '<span class="tomorrow-badge">TOMORROW</span>' : '';
-    html += `<div class="day-group">
-      <div class="day-label">${formatDisplayDate(date)} ${todayBadge}${tomorrowBadge}</div>`;
-    
-    grouped[date].forEach(item => {
-      html += renderCard(item);
-    });
-    html += '</div>';
-  });
-
-  document.getElementById('mainContent').innerHTML = html;
-}
-
-function renderCard(item) {
-  if (item.type === 'earnings') {
-    const isWatched = watchlist.includes(item.ticker);
-    const eps = item.epsEstimate ? `Est. EPS: <span>$${item.epsEstimate}</span>` : '';
-    const rev = item.revenueEstimate ? `Est. Rev: <span>$${(item.revenueEstimate/1e9).toFixed(1)}B</span>` : '';
-    return `<div class="report-card">
-      <div class="impact-dot ${item.impact}"></div>
-      <div class="report-info">
-        <div class="ticker-row">
-          <span class="ticker">${item.ticker}</span>
-          <span class="report-name">${item.name}</span>
-          ${isWatched ? '⭐' : ''}
-        </div>
-        <div class="report-meta">
-          <span class="report-time">${item.time}</span>
-          <span class="report-category cat-earnings">Earnings</span>
-        </div>
-        ${eps||rev ? `<div class="eps-row">${eps}${eps&&rev?' · ':''}${rev}</div>` : ''}
-      </div>
-      <div class="report-right">
-        <div class="impact-badge ${item.impact}">${item.impact.toUpperCase()}</div>
+async function loadPreview(cardId,item){
+  const panel=document.getElementById('preview-'+cardId);
+  if(!panel)return;
+  if(item.type==='earnings'){
+    const[profile,news,history]=await Promise.all([
+      fetchCompanyProfile(item.ticker),
+      fetchCompanyNews(item.ticker),
+      fetchEarningsHistory(item.ticker)
+    ]);
+    let html='';
+    // Header
+    const logoHtml=profile?.logo?`<img class="company-logo" src="${profile.logo}" onerror="this.style.display='none'"/>`
+      :`<div class="company-logo-placeholder">${item.ticker.slice(0,2)}</div>`;
+    html+=`<div class="preview-header">
+      ${logoHtml}
+      <div>
+        <div class="preview-name">${profile?.name||item.name}</div>
+        <div class="preview-industry">${profile?.finnhubIndustry||''} ${profile?.exchange?'· '+profile.exchange:''}</div>
       </div>
     </div>`;
+    // Stats
+    const mcap=profile?.marketCapitalization?(profile.marketCapitalization/1000).toFixed(1)+'B':'-';
+    const country=profile?.country||'-';
+    const ipo=profile?.ipo||'-';
+    html+=`<div class="preview-stats">
+      <div class="preview-stat"><div class="label">Market Cap</div><div class="val">$${mcap}</div></div>
+      <div class="preview-stat"><div class="label">Exchange</div><div class="val">${profile?.exchange||'-'}</div></div>
+      <div class="preview-stat"><div class="label">Country</div><div class="val">${country}</div></div>
+      <div class="preview-stat"><div class="label">IPO</div><div class="val">${ipo}</div></div>
+      ${item.epsEstimate?`<div class="preview-stat"><div class="label">EPS Estimate</div><div class="val">$${item.epsEstimate}</div></div>`:''}
+      ${item.revenueEstimate?`<div class="preview-stat"><div class="label">Rev Estimate</div><div class="val">$${(item.revenueEstimate/1e9).toFixed(1)}B</div></div>`:''}
+    </div>`;
+    // Past earnings
+    if(history&&history.length){
+      html+=`<div class="preview-news-title">📊 Recent Earnings History</div>
+        <div class="preview-stats" style="margin-bottom:14px">`;
+      history.slice(0,4).forEach(h=>{
+        const surprise=h.surprise>0?`+${h.surprise}`:(h.surprise||0).toString();
+        const color=h.surprise>0?'var(--green)':h.surprise<0?'var(--red)':'var(--text)';
+        html+=`<div class="preview-stat">
+          <div class="label">${h.period||'-'}</div>
+          <div class="val">EPS: ${h.actual||'-'}</div>
+          <div style="font-size:11px;color:${color}">${surprise!=='0'?'Surprise: '+surprise:''}</div>
+        </div>`;
+      });
+      html+='</div>';
+    }
+    // News
+    if(news&&news.length){
+      html+=`<div class="preview-news"><div class="preview-news-title">📰 Recent News</div>`;
+      news.forEach(n=>{
+        html+=`<div class="news-item">
+          <a href="${n.url}" target="_blank">${n.headline}</a>
+          <div class="news-date">${timeAgo(n.datetime)}</div>
+        </div>`;
+      });
+      html+='</div>';
+    }
+    // Footer
+    html+=`<div class="preview-footer">
+      <a class="preview-btn btn-primary" href="https://finance.yahoo.com/quote/${item.ticker}/financials" target="_blank">📊 Full Financials</a>
+      <a class="preview-btn btn-secondary" href="https://finance.yahoo.com/quote/${item.ticker}" target="_blank">📈 Yahoo Finance</a>
+      <a class="preview-btn btn-secondary" href="https://www.marketwatch.com/investing/stock/${item.ticker.toLowerCase()}" target="_blank">📰 MarketWatch</a>
+    </div>`;
+    panel.innerHTML=html;
   } else {
-    const est = item.estimate ? `Est: <span>${item.estimate}${item.unit||''}</span>` : '';
-    const prev = item.previous ? `Prev: <span>${item.previous}${item.unit||''}</span>` : '';
-    return `<div class="report-card">
-      <div class="impact-dot ${item.impact}"></div>
-      <div class="report-info">
-        <div class="report-name">${item.name}</div>
-        <div class="report-meta">
-          <span class="report-category ${item.category==='fed'?'cat-fed':'cat-economic'}">${item.category==='fed'?'FED':'Economic'}</span>
-          ${item.country ? `<span class="report-time">🇺🇸 ${item.country}</span>` : ''}
-        </div>
-        ${est||prev ? `<div class="eps-row">${est}${est&&prev?' · ':''}${prev}</div>` : ''}
+    // Economic event preview
+    const descriptions={
+      'nonfarm':'Measures the number of jobs added or lost in the economy, excluding farm workers. One of the most important market-moving reports.',
+      'cpi':'Consumer Price Index — measures the average change in prices paid by consumers for goods and services. Key inflation indicator.',
+      'fomc':'Federal Open Market Committee meeting. Decisions on interest rates made here directly impact the entire market.',
+      'gdp':'Gross Domestic Product — measures the total economic output of the US. Shows whether the economy is growing or shrinking.',
+      'pce':'Personal Consumption Expenditures — the Fed\'s preferred inflation gauge. Closely watched for rate decisions.',
+      'unemployment':'Measures the percentage of people actively seeking work. Lower is generally positive for the market.',
+      'retail sales':'Measures the total receipts of retail stores. Shows consumer spending strength.',
+      'ppi':'Producer Price Index — measures inflation at the wholesale level before it reaches consumers.',
+      'jobs':'Labor market data showing employment conditions across the US economy.',
+    };
+    const nl=(item.name||'').toLowerCase();
+    let desc='Key economic data release that can significantly impact market conditions and Fed policy decisions.';
+    for(const[key,val]of Object.entries(descriptions)){if(nl.includes(key)){desc=val;break;}}
+    
+    let html=`<div class="econ-preview">
+      <div class="econ-stat-row">
+        ${item.estimate?`<div class="econ-stat"><div class="label">Forecast</div><div class="val">${item.estimate}${item.unit||''}</div></div>`:''}
+        ${item.previous?`<div class="econ-stat"><div class="label">Previous</div><div class="val">${item.previous}${item.unit||''}</div></div>`:''}
+        <div class="econ-stat"><div class="label">Impact</div><div class="val" style="color:var(--${item.impact==='high'?'red':'yellow'})">${item.impact.toUpperCase()}</div></div>
+        <div class="econ-stat"><div class="label">Type</div><div class="val">${item.category==='fed'?'Fed Decision':'Economic Data'}</div></div>
       </div>
-      <div class="report-right">
-        <div class="impact-badge ${item.impact}">${item.impact.toUpperCase()}</div>
+      <div class="econ-desc">${desc}</div>
+      <div class="preview-footer" style="margin-top:12px">
+        <a class="preview-btn btn-primary" href="https://tradingeconomics.com/united-states/${nl.replace(/\s+/g,'-')}" target="_blank">📊 Trading Economics</a>
+        <a class="preview-btn btn-secondary" href="https://www.bls.gov" target="_blank">🏛️ BLS.gov</a>
+        <a class="preview-btn btn-secondary" href="https://www.federalreserve.gov" target="_blank">🏦 Fed Reserve</a>
       </div>
     </div>`;
+    panel.innerHTML=html;
   }
 }
 
 // ── NOTIFICATIONS ──────────────────────────────────
-async function enableNotifications() {
-  const perm = await Notification.requestPermission();
-  if (perm === 'granted') {
-    notifEnabled = true;
+async function enableNotifications(){
+  const perm=await Notification.requestPermission();
+  if(perm==='granted'){
     localStorage.setItem('marketNotifEnabled','true');
-    document.getElementById('notifBanner').style.display = 'none';
-    new Notification('📈 Market Reports',{body:'You will be alerted before major reports!'});
-    scheduleNotifications();
-  } else {
-    alert('Please allow notifications in your browser settings.');
+    document.getElementById('notifBanner').style.display='none';
+    new Notification('📈 Market Reports',{body:'You\'ll be alerted before major reports!'});
   }
 }
 
-function scheduleNotifications() {
-  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate()+1);
-  const tomorrowStr = fmt(tomorrow);
-  const highTomorrow = [...allEarnings,...allEconomic].filter(e=>e.date===tomorrowStr&&e.impact==='high');
-  if (highTomorrow.length) {
-    setTimeout(() => {
-      highTomorrow.forEach(e => {
-        new Notification(`📈 Tomorrow: ${e.name}`,{body:`${e.type==='earnings'?'Earnings report':'Economic data'} — High impact`});
-      });
-    }, 3000);
+
+// ── PREVIEW MODAL ──────────────────────────────────
+async function showPreview(item) {
+  document.getElementById('previewModal').style.display = 'flex';
+  document.getElementById('modalTitle').textContent = item.type === 'earnings' ? `${item.ticker} — ${item.name}` : item.name;
+  document.getElementById('modalBody').innerHTML = '<div class="modal-loading"><div class="loading-spinner" style="width:24px;height:24px;border-width:2px;margin:0 auto 12px"></div>Fetching details…</div>';
+
+  if (item.type === 'earnings') {
+    await showEarningsPreview(item);
+  } else {
+    showEconomicPreview(item);
+  }
+}
+
+async function showEarningsPreview(item) {
+  try {
+    const [profileRes, metricsRes] = await Promise.all([
+      fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${item.ticker}&token=${FINNHUB_KEY}`),
+      fetch(`https://finnhub.io/api/v1/stock/metric?symbol=${item.ticker}&metric=all&token=${FINNHUB_KEY}`)
+    ]);
+    const profile = await profileRes.json();
+    const metrics = await metricsRes.json();
+    const m = metrics.metric || {};
+
+    const marketCap = profile.marketCapitalization ? `$${(profile.marketCapitalization/1000).toFixed(1)}B` : 'N/A';
+    const peRatio = m.peNormalizedAnnual ? m.peNormalizedAnnual.toFixed(1) : 'N/A';
+    const eps = item.epsEstimate ? `$${item.epsEstimate}` : 'N/A';
+    const rev = item.revenueEstimate ? `$${(item.revenueEstimate/1e9).toFixed(2)}B` : 'N/A';
+    const high52 = m['52WeekHigh'] ? `$${m['52WeekHigh'].toFixed(2)}` : 'N/A';
+    const low52 = m['52WeekLow'] ? `$${m['52WeekLow'].toFixed(2)}` : 'N/A';
+
+    const yahooUrl = `https://finance.yahoo.com/quote/${item.ticker}`;
+    const seekingUrl = `https://seekingalpha.com/symbol/${item.ticker}/earnings`;
+    const finnhubUrl = `https://finnhub.io/quote?symbol=${item.ticker}`;
+
+    document.getElementById('modalBody').innerHTML = `
+      ${profile.logo ? `<img src="${profile.logo}" style="height:36px;margin-bottom:12px;border-radius:6px;" onerror="this.style.display='none'"/>` : ''}
+      ${profile.finnhubIndustry ? `<span class="modal-tag">📊 ${profile.finnhubIndustry}</span>` : ''}
+      ${profile.exchange ? `<span class="modal-tag">🏛 ${profile.exchange}</span>` : ''}
+      ${profile.country ? `<span class="modal-tag">🌍 ${profile.country}</span>` : ''}
+      <br/><br/>
+
+      ${profile.description ? `
+        <div class="modal-section">
+          <div class="modal-label">About</div>
+          <div class="modal-value">${profile.description.slice(0,300)}${profile.description.length>300?'…':''}</div>
+        </div>` : ''}
+
+      <div class="modal-section">
+        <div class="modal-label">Upcoming Report</div>
+        <div class="modal-grid">
+          <div class="modal-stat"><div class="stat-label">Report Date</div><div class="stat-value">${item.date}</div></div>
+          <div class="modal-stat"><div class="stat-label">Timing</div><div class="stat-value" style="font-size:13px">${item.time}</div></div>
+          <div class="modal-stat"><div class="stat-label">EPS Estimate</div><div class="stat-value" style="color:var(--green)">${eps}</div></div>
+          <div class="modal-stat"><div class="stat-label">Revenue Est.</div><div class="stat-value" style="color:var(--accent)">${rev}</div></div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-label">Key Stats</div>
+        <div class="modal-grid">
+          <div class="modal-stat"><div class="stat-label">Market Cap</div><div class="stat-value">${marketCap}</div></div>
+          <div class="modal-stat"><div class="stat-label">P/E Ratio</div><div class="stat-value">${peRatio}</div></div>
+          <div class="modal-stat"><div class="stat-label">52W High</div><div class="stat-value" style="color:var(--green)">${high52}</div></div>
+          <div class="modal-stat"><div class="stat-label">52W Low</div><div class="stat-value" style="color:var(--red)">${low52}</div></div>
+        </div>
+      </div>
+
+      <div class="modal-links">
+        <a href="${yahooUrl}" target="_blank" class="modal-link">📈 Yahoo Finance</a>
+        <a href="${seekingUrl}" target="_blank" class="modal-link secondary">📰 Seeking Alpha</a>
+        <a href="${finnhubUrl}" target="_blank" class="modal-link secondary">🔗 Finnhub</a>
+      </div>`;
+  } catch(e) {
+    document.getElementById('modalBody').innerHTML = `<div class="modal-value" style="color:var(--muted)">Could not load details. <a href="https://finance.yahoo.com/quote/${item.ticker}" target="_blank" style="color:var(--accent)">View on Yahoo Finance →</a></div>`;
+  }
+}
+
+function showEconomicPreview(item) {
+  const investopediaSearch = `https://www.investopedia.com/search?q=${encodeURIComponent(item.name)}`;
+  const tradingEconUrl = `https://tradingeconomics.com/united-states/${encodeURIComponent(item.name.toLowerCase().replace(/ /g,'-'))}`;
+
+  const descriptions = {
+    'nonfarm': 'Measures the number of jobs added or lost in the US economy, excluding farm workers. One of the most watched economic indicators, it directly impacts Fed policy decisions.',
+    'unemployment': 'The percentage of the labor force that is jobless and actively seeking employment. A key indicator of economic health.',
+    'cpi': 'Consumer Price Index measures the average change in prices paid by consumers for goods and services. The primary inflation gauge watched by the Federal Reserve.',
+    'fed': 'Federal Reserve interest rate decision. One of the most market-moving events — affects borrowing costs, stock valuations, and the entire economy.',
+    'fomc': 'Federal Open Market Committee meeting minutes and rate decision. Critical for understanding the Fed's monetary policy direction.',
+    'gdp': 'Gross Domestic Product measures the total economic output of the US. The broadest measure of economic activity and health.',
+    'pce': 'Personal Consumption Expenditures price index — the Fed's preferred inflation measure. Closely watched for monetary policy decisions.',
+    'retail sales': 'Measures consumer spending at retail stores. Since consumer spending drives ~70% of the US economy, this is a key growth indicator.',
+    'ppi': 'Producer Price Index measures inflation at the wholesale level — an early warning signal for consumer inflation.',
+  };
+
+  const nameLower = item.name.toLowerCase();
+  let description = 'An important economic data release that can significantly impact market sentiment and trading activity.';
+  for (const [key, desc] of Object.entries(descriptions)) {
+    if (nameLower.includes(key)) { description = desc; break; }
+  }
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-label">What is this report?</div>
+      <div class="modal-value">${description}</div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-label">Report Details</div>
+      <div class="modal-grid">
+        <div class="modal-stat"><div class="stat-label">Release Date</div><div class="stat-value">${item.date}</div></div>
+        <div class="modal-stat"><div class="stat-label">Impact</div><div class="stat-value" style="color:var(--red)">${item.impact.toUpperCase()}</div></div>
+        ${item.estimate ? `<div class="modal-stat"><div class="stat-label">Estimate</div><div class="stat-value" style="color:var(--green)">${item.estimate}${item.unit||''}</div></div>` : ''}
+        ${item.previous ? `<div class="modal-stat"><div class="stat-label">Previous</div><div class="stat-value">${item.previous}${item.unit||''}</div></div>` : ''}
+      </div>
+    </div>
+
+    <div class="modal-links">
+      <a href="${investopediaSearch}" target="_blank" class="modal-link">📚 Investopedia</a>
+      <a href="${tradingEconUrl}" target="_blank" class="modal-link secondary">📊 Trading Economics</a>
+    </div>`;
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('previewModal')) {
+    document.getElementById('previewModal').style.display = 'none';
   }
 }
 
 // ── INIT ───────────────────────────────────────────
-document.getElementById('tickerInput').addEventListener('keydown', e => { if(e.key==='Enter') addTicker(); });
-
-if (Notification.permission !== 'granted' && Notification.permission !== 'denied') {
-  document.getElementById('notifBanner').style.display = 'flex';
+document.getElementById('tickerInput').addEventListener('keydown',e=>{if(e.key==='Enter')addTicker();});
+if(Notification.permission!=='granted'&&Notification.permission!=='denied'){
+  document.getElementById('notifBanner').style.display='flex';
 }
-
 renderWatchlist();
 loadAll();
-
-// Auto refresh every 30 minutes
-setInterval(loadAll, 30 * 60 * 1000);
+setInterval(loadAll,30*60*1000);
 </script>
 </body>
 </html>
