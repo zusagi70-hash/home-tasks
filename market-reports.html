@@ -447,7 +447,7 @@ async function loadEarningsPreview(item){
   }
 }
 
-function loadEconomicPreview(item){
+async function loadEconomicPreview(item){
   const DESCS={
     'nonfarm':'Measures jobs added or lost in the US economy, excluding farm workers. One of the most watched indicators — directly impacts Fed policy and bond yields.',
     'unemployment':'The percentage of the labor force that is jobless. A key indicator of economic health and consumer spending power.',
@@ -512,10 +512,14 @@ async function generateAISummary(item) {
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
+        max_tokens: 300,
         messages: [{ role: 'user', content: prompt }]
       })
     });
