@@ -183,17 +183,37 @@ function removeTicker(t){
 }
 
 // FETCH
+// Top market-moving companies by importance tier
+var TIER1 = ['AAPL','MSFT','NVDA','AMZN','GOOGL','GOOG','META','TSLA','AVGO','BRK.B','JPM','V','UNH','XOM','LLY','JNJ','WMT','MA','PG','HD'];
+var TIER2 = ['BAC','ABBV','MRK','CVX','KO','PEP','ORCL','CSCO','ACN','MCD','ABT','CRM','NKE','TMO','COST','DIS','INTC','IBM','QCOM','AMD','NFLX','PYPL','ADBE','TXN','HON','GS','MS','CAT','BA','GE'];
+
 async function fetchEarnings(from, to){
   var r=await fetch('https://finnhub.io/api/v1/calendar/earnings?from='+from+'&to='+to+'&token='+FKEY);
   var d=await r.json();
-  return (d.earningsCalendar||[]).map(function(e){
+  var all=(d.earningsCalendar||[]).map(function(e){
+    var inWatchlist=watchlist.includes(e.symbol);
+    var inTier1=TIER1.includes(e.symbol);
+    var inTier2=TIER2.includes(e.symbol);
+    var score=0;
+    if(inWatchlist) score+=100;
+    if(inTier1) score+=50;
+    if(inTier2) score+=25;
+    // Boost by revenue estimate size
+    if(e.revenueEstimate) score+=Math.min(20, e.revenueEstimate/5e9);
     return {
       type:'earnings', date:e.date, name:e.company||e.symbol, ticker:e.symbol,
       time: e.hour==='bmo'?'🌅 Before Open':e.hour==='amc'?'🌙 After Close':'🕐 During Hours',
       epsEstimate:e.epsEstimate, revenueEstimate:e.revenueEstimate,
-      impact: watchlist.includes(e.symbol)?'high':'medium', category:'earnings'
+      impact: (inWatchlist||inTier1)?'high':inTier2?'medium':'low',
+      category:'earnings', score:score
     };
   });
+  // Sort by score, take top 20 earnings + always include watchlist items
+  var watchlistItems=all.filter(function(e){return watchlist.includes(e.ticker);});
+  var topItems=all.filter(function(e){return !watchlist.includes(e.ticker);})
+    .sort(function(a,b){return b.score-a.score;})
+    .slice(0,20-Math.min(watchlistItems.length,5));
+  return watchlistItems.concat(topItems);
 }
 
 async function fetchEconomic(from, to){
