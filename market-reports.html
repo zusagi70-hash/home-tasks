@@ -76,6 +76,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .impact-badge.low{background:var(--green-light);color:var(--green);}
 .ext-link{background:none;border:none;cursor:pointer;color:var(--muted);padding:3px 5px;border-radius:6px;display:flex;align-items:center;transition:color 0.15s;}
 .ext-link:hover{color:var(--accent);}
+.sector-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.sector-btn{background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:5px 14px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;}
+.sector-btn:hover{border-color:var(--accent);color:var(--accent);}
+.sector-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
 .loading{text-align:center;padding:60px 20px;color:var(--muted);}
 .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
 .empty{text-align:center;padding:40px;color:var(--muted);font-size:14px;}
@@ -137,6 +141,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <button class="tab" onclick="switchTab('watchlist',this)">My Watchlist</button>
   </div>
 
+  <div class="sector-filters" id="sectorFilters" style="display:none"></div>
   <div id="mainContent"><div class="loading"><div class="spinner"></div>Loading reports…</div></div>
 </div>
 
@@ -153,7 +158,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <script>
 const FKEY = 'd8iq7dhr01qtcvnt63g0d8iq7dhr01qtcvnt63gg';
-let allEarnings = [], allEconomic = [], currentTab = 'all', renderedItems = [];
+let allEarnings = [], allEconomic = [], currentTab = 'all', renderedItems = [], activeSector = 'all';
 let watchlist = JSON.parse(localStorage.getItem('mkt_watchlist') || '["AAPL","NVDA","MSFT","AVGO","TSLA"]');
 
 function fmt(d){ return d.toISOString().split('T')[0]; }
@@ -183,6 +188,21 @@ function removeTicker(t){
 }
 
 // FETCH
+// Sector lookup for common tickers
+var SECTORS={
+  'AAPL':'Technology','MSFT':'Technology','NVDA':'Technology','GOOGL':'Technology','GOOG':'Technology',
+  'META':'Technology','AVGO':'Technology','ORCL':'Technology','CSCO':'Technology','INTC':'Technology',
+  'AMD':'Technology','QCOM':'Technology','TXN':'Technology','ADBE':'Technology','CRM':'Technology','IBM':'Technology',
+  'AMZN':'Consumer Discretionary','TSLA':'Consumer Discretionary','NKE':'Consumer Discretionary','MCD':'Consumer Discretionary','HD':'Consumer Discretionary',
+  'JPM':'Financials','BAC':'Financials','GS':'Financials','MS':'Financials','V':'Financials','MA':'Financials',
+  'UNH':'Healthcare','JNJ':'Healthcare','LLY':'Healthcare','MRK':'Healthcare','ABBV':'Healthcare','ABT':'Healthcare','TMO':'Healthcare',
+  'XOM':'Energy','CVX':'Energy',
+  'WMT':'Consumer Staples','PG':'Consumer Staples','KO':'Consumer Staples','PEP':'Consumer Staples','COST':'Consumer Staples',
+  'DIS':'Communication Services','NFLX':'Communication Services',
+  'ACN':'Technology','HON':'Industrials','CAT':'Industrials','BA':'Industrials','GE':'Industrials',
+  'BRK.B':'Financials','PYPL':'Financials',
+};
+
 // Top market-moving companies by importance tier
 var TIER1 = ['AAPL','MSFT','NVDA','AMZN','GOOGL','GOOG','META','TSLA','AVGO','BRK.B','JPM','V','UNH','XOM','LLY','JNJ','WMT','MA','PG','HD'];
 var TIER2 = ['BAC','ABBV','MRK','CVX','KO','PEP','ORCL','CSCO','ACN','MCD','ABT','CRM','NKE','TMO','COST','DIS','INTC','IBM','QCOM','AMD','NFLX','PYPL','ADBE','TXN','HON','GS','MS','CAT','BA','GE'];
@@ -205,7 +225,8 @@ async function fetchEarnings(from, to){
       time: e.hour==='bmo'?'🌅 Before Open':e.hour==='amc'?'🌙 After Close':'🕐 During Hours',
       epsEstimate:e.epsEstimate, revenueEstimate:e.revenueEstimate,
       impact: (inWatchlist||inTier1)?'high':inTier2?'medium':'low',
-      category:'earnings', score:score
+      category:'earnings', score:score,
+      sector: SECTORS[e.symbol]||null
     };
   });
   // Sort by score, take top 20 earnings + always include watchlist items
@@ -213,7 +234,19 @@ async function fetchEarnings(from, to){
   var topItems=all.filter(function(e){return !watchlist.includes(e.ticker);})
     .sort(function(a,b){return b.score-a.score;})
     .slice(0,20-Math.min(watchlistItems.length,5));
-  return watchlistItems.concat(topItems);
+  var combined=watchlistItems.concat(topItems);
+
+  // Fetch sectors for unknown tickers in parallel (max 5 API calls)
+  var unknownTickers=combined.filter(function(e){return !e.sector;}).slice(0,5);
+  await Promise.all(unknownTickers.map(async function(item){
+    try{
+      var pr=await fetch('https://finnhub.io/api/v1/stock/profile2?symbol='+item.ticker+'&token='+FKEY);
+      var pd=await pr.json();
+      if(pd.finnhubIndustry) item.sector=pd.finnhubIndustry;
+    }catch(e2){}
+  }));
+
+  return combined;
 }
 
 async function fetchEconomic(from, to){
@@ -268,8 +301,33 @@ function renderSummary(){
     '<div class="summary-card"><div class="lbl">Watchlist</div><div class="val" style="color:var(--green)">'+wlCount+'</div><div class="sub">Your stocks</div></div>';
 }
 
+function renderSectorFilters(items){
+  var sectors={};
+  items.forEach(function(item){
+    if(item.sector){ sectors[item.sector]=(sectors[item.sector]||0)+1; }
+    if(item.type==='economic'){ sectors['Economic']=(sectors['Economic']||0)+1; }
+  });
+  var keys=Object.keys(sectors).sort();
+  if(keys.length<2){ document.getElementById('sectorFilters').style.display='none'; return; }
+  var allActive=activeSector==='all'?' active':'';
+  var html='<button class="sector-btn'+allActive+'" onclick="setSector(\'all\')">All</button>';
+  keys.forEach(function(s){
+    var isActive=activeSector===s?' active':'';
+    html+='<button class="sector-btn'+isActive+'" onclick="setSector(\''+s+'\')">'+s+' <span style="opacity:0.6">'+sectors[s]+'</span></button>';
+  });
+  var el=document.getElementById('sectorFilters');
+  el.innerHTML=html;
+  el.style.display='flex';
+}
+
+function setSector(sector){
+  activeSector=sector;
+  renderContent();
+}
+
 function switchTab(tab, el){
   currentTab=tab;
+  activeSector='all';
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
   el.classList.add('active'); renderContent();
 }
@@ -281,7 +339,17 @@ function renderContent(){
   else if(currentTab==='earnings') items=allEarnings;
   else if(currentTab==='economic') items=allEconomic;
   else items=allEarnings.filter(function(e){return watchlist.includes(e.ticker);});
-  if(!items.length){document.getElementById('mainContent').innerHTML='<div class="empty">No reports found.</div>';return;}
+
+  renderSectorFilters(items);
+
+  // Apply sector filter
+  if(activeSector!=='all'){
+    items=items.filter(function(item){
+      if(activeSector==='Economic') return item.type==='economic';
+      return item.sector===activeSector;
+    });
+  }
+  if(!items.length){document.getElementById('mainContent').innerHTML='<div class="empty">No reports found for this sector.</div>';return;}
   items.sort(function(a,b){return a.date.localeCompare(b.date);});
   var grouped={};
   items.forEach(function(item){if(!grouped[item.date])grouped[item.date]=[];grouped[item.date].push(item);});
@@ -313,8 +381,9 @@ function renderCard(item, idx){
   if(item.type==='earnings'){
     var eps=item.epsEstimate?'Est. EPS: <span>$'+item.epsEstimate+'</span>':'';
     var rev=item.revenueEstimate?'Est. Rev: <span>$'+(item.revenueEstimate/1e9).toFixed(1)+'B</span>':'';
+    var sectorHtml=item.sector?'<span class="cat-badge" style="background:var(--surface2);color:var(--muted)">'+item.sector+'</span>':'';
     infoHtml='<div class="ticker-row"><span class="ticker">'+item.ticker+'</span><span class="report-name">'+item.name+'</span>'+(watched?'⭐':'')+'</div>'+
-      '<div class="report-meta"><span class="report-time">'+item.time+'</span><span class="cat-badge cat-earnings">Earnings</span></div>'+
+      '<div class="report-meta"><span class="report-time">'+item.time+'</span><span class="cat-badge cat-earnings">Earnings</span>'+sectorHtml+'</div>'+
       (eps||rev?'<div class="eps-row">'+eps+(eps&&rev?' · ':'')+rev+'</div>':'');
   } else {
     infoHtml='<div class="report-name">'+item.name+'</div>'+
