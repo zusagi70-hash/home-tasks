@@ -228,12 +228,12 @@ async function fetchEconomic(from, to){
     {date:'2026-06-20',name:'Existing Home Sales (May)',impact:'medium',category:'economic',description:'Sales of previously-owned homes. Reflects consumer confidence and mortgage rate impact.'},
     {date:'2026-06-25',name:'Consumer Confidence',impact:'medium',category:'economic',description:'Conference Board index measuring how optimistic consumers feel about the economy.'},
     {date:'2026-06-26',name:'GDP Q1 2026 (Final)',impact:'high',category:'economic',description:'Final revision of Q1 2026 GDP growth rate — the broadest measure of economic output.'},
-    {date:'2026-06-27',name:'PCE Price Index (May)',impact:'high',category:'economic',description:"Personal Consumption Expenditures — the Fed's preferred inflation measure. Crucial for rate outlook."},
+    {date:'2026-06-27',name:'PCE Price Index (May)',impact:'high',category:'economic',description:"Personal Consumption Expenditures — the Fed preferred inflation measure. Crucial for rate outlook."},
     {date:'2026-07-02',name:'Nonfarm Payrolls (June)',impact:'high',category:'economic',description:'Monthly jobs report — most watched economic release. Shows jobs added/lost and wage growth.'},
     {date:'2026-07-02',name:'Unemployment Rate (June)',impact:'high',category:'economic',description:'Percentage of labor force that is unemployed. Key Fed dual-mandate indicator.'},
     {date:'2026-07-10',name:'CPI (June 2026)',impact:'high',category:'economic',description:'Consumer Price Index for June — shows if inflation is cooling or reaccelerating.'},
     {date:'2026-07-15',name:'Retail Sales (June 2026)',impact:'high',category:'economic',description:'Consumer spending data for June — critical for Q3 GDP estimates.'},
-    {date:'2026-07-25',name:'PCE Price Index (June)',impact:'high',category:'economic',description:"Fed's preferred inflation gauge for June — directly impacts rate cut expectations."},
+    {date:'2026-07-25',name:'PCE Price Index (June)',impact:'high',category:'economic',description:"Fed preferred inflation gauge for June — directly impacts rate cut expectations."},
   ];
   return KNOWN.filter(function(e){ return e.date>=from && e.date<=to; })
     .map(function(e){ return {type:'economic',date:e.date,name:e.name,country:'US',impact:e.impact,category:e.category,description:e.description}; });
@@ -403,38 +403,71 @@ function loadEconomicPreview(item){
   generateAISummary('economic', null, item.name, item.date, null, null, null, item.description, item.estimate, item.previous);
 }
 
-async function generateAISummary(type, ticker, name, date, industry, eps, revenue, description, estimate, previous){
-  var prompt='';
+function generateAISummary(type, ticker, name, date, industry, eps, revenue, description, estimate, previous){
+  var el=document.getElementById('aiSummary');
+  if(!el) return;
+
+  var text='';
+
   if(type==='earnings'){
-    var epsStr=eps?'$'+eps:'unknown';
-    var revStr=revenue?'$'+(revenue/1e9).toFixed(2)+'B':'unknown';
-    prompt='You are a concise financial analyst. Write a 3-4 sentence "what to watch" briefing for a trader about the upcoming '+name+' ('+ticker+') earnings report on '+date+'. Industry: '+(industry||'N/A')+'. Consensus EPS estimate: '+epsStr+', Revenue estimate: '+revStr+'. Cover: what investors are focused on for this company right now, key themes or risks, and what a beat or miss could mean for the stock. Be specific and actionable.';
+    var epsStr=eps?'$'+eps:null;
+    var revStr=revenue?'$'+(revenue/1e9).toFixed(2)+'B':null;
+
+    // Company-specific summaries for major names
+    var KNOWN={
+      'NVDA': 'NVIDIA is the dominant AI chip supplier, with analysts watching data center revenue growth and Blackwell GPU demand. Key question: can AI infrastructure spending sustain momentum heading into H2? A beat with strong guidance could push the stock to new highs, while any slowdown in hyperscaler orders may trigger a sharp pullback.',
+      'AAPL': 'Apple investors focus on iPhone demand trends, Services revenue growth, and any AI (Apple Intelligence) monetization updates. China sales remain a wildcard. A revenue beat driven by Services could re-rate the stock higher, while iPhone unit disappointments may pressure shares.',
+      'MSFT': 'Microsoft is a key bellwether for enterprise AI adoption — watch Azure cloud growth and Copilot monetization progress. Analysts expect AI to add meaningful revenue. Strong Azure numbers typically lift the entire cloud sector.',
+      'AMZN': 'Amazon report centers on AWS cloud growth and advertising revenue acceleration. Margin expansion from cost cuts has been a major theme. Strong AWS guidance would be bullish for the entire tech sector and cloud peers.',
+      'META': 'Meta investors focus on ad revenue growth, user engagement across Facebook and Instagram, and AI infrastructure spending (capex). Reality Labs losses are closely tracked. Ad market strength is the key driver — any acceleration signals well for digital advertising broadly.',
+      'GOOGL': 'Alphabet report pivots on Search revenue resilience vs. AI competition, YouTube ad growth, and Google Cloud momentum. AI Overviews impact on search monetization is the critical new variable to watch.',
+      'TSLA': 'Tesla reports are always volatile — watch vehicle deliveries vs. estimates, energy storage revenue (a breakout segment), and any update on the robotaxi timeline. Margins are under pressure from price cuts. Elon Musk commentary on FSD and autonomous driving often moves the stock more than the numbers.',
+      'AVGO': 'Broadcom is a key AI beneficiary through custom AI chips (XPUs) for hyperscalers and VMware integration revenue. Analysts watch AI chip revenue guidance and VMware subscription conversion progress. Strong AI chip demand signals align with the broader AI capex cycle.',
+      'JPM': 'JPMorgan is the banking bellwether — watch net interest income trends, loan growth, credit quality, and trading revenue. CEO Jamie Dimon economic outlook comments often move the entire financial sector.',
+      'NFLX': 'Netflix focus is on subscriber additions, average revenue per user, and ad-supported tier adoption. Password sharing crackdown tailwinds may be moderating — next quarter guidance is the key number to watch.',
+      'AMD': 'AMD is NVIDIA closest AI chip rival — watch MI300X GPU sales and data center revenue growth. Any market share gains vs. NVIDIA, or hyperscaler customer wins, could be a major positive catalyst. PC market recovery is a secondary theme.',
+    };
+
+    if(KNOWN[ticker]){
+      text=KNOWN[ticker];
+    } else {
+      // Generate dynamic summary from available data
+      var lines=[];
+      lines.push(name+' ('+(ticker||'N/A')+') reports on '+date+(industry?' in the '+industry+' sector.':'.')); 
+      if(epsStr||revStr){
+        var estLine='Consensus expects';
+        if(epsStr) estLine+=' EPS of '+epsStr;
+        if(epsStr&&revStr) estLine+=' and';
+        if(revStr) estLine+=' revenue of '+revStr;
+        estLine+='.';
+        lines.push(estLine);
+      }
+      lines.push('Watch for management guidance and any commentary on macro conditions, cost pressures, and demand trends in their end markets.');
+      lines.push('A beat with raised guidance typically drives a 5-10% move up; a miss or cut guidance can cause a sharp selloff.');
+      text=lines.join(' ');
+    }
   } else {
-    prompt='You are a concise financial analyst. Write a 3-4 sentence "what to watch" briefing for a trader about the upcoming '+name+' report on '+date+'. '+(description||'')+' Cover: what the market expects, why this data matters for stocks and rates right now, and how a surprise could move markets. Be specific and actionable.';
+    // Economic reports
+    var ECO_KNOWN={
+      'CPI': 'The Consumer Price Index is the market primary inflation gauge. With the Fed laser-focused on getting inflation to 2%, any upside surprise (hotter inflation) would push back rate cut expectations and pressure stocks and bonds. A cool reading accelerates the rate cut timeline and is generally bullish for equities — especially growth and tech.',
+      'FOMC': 'The Federal Reserve rate decision is the single most market-moving event of the quarter. Beyond the rate decision itself, markets parse every word of the Fed statement and Chair Powell press conference for clues on the rate cut timeline. Even a hold can spark big moves if the tone shifts hawkish or dovish.',
+      'Nonfarm': 'The monthly jobs report (NFP) is the most watched US economic release. Strong job creation above ~200K signals a resilient economy but may delay Fed rate cuts. A weak number raises recession fears but could accelerate cuts. The unemployment rate and average hourly earnings (wage inflation) are equally important to watch.',
+      'PCE': 'Personal Consumption Expenditures is the Federal Reserve preferred inflation measure — more important than CPI for Fed policy. A cool PCE reading supports the case for rate cuts and is bullish for stocks. Hot PCE pushes rate cuts further out and typically pressures growth stocks and bonds.',
+      'GDP': 'GDP is the broadest measure of US economic health. A strong reading confirms economic resilience, while a contraction raises recession fears. Markets focus on the composition — consumer spending strength is the most important component, driving ~70% of US economic output.',
+      'Retail Sales': 'Retail sales directly measures consumer spending — the engine of the US economy. A strong number signals consumers remain resilient up despite higher rates, supporting corporate earnings. A weak number raises growth concerns and may accelerate Fed easing expectations.',
+      'PPI': 'Producer Price Index measures inflation at the wholesale level — an early warning signal for future consumer prices. Hot PPI can foreshadow higher CPI next month, while cool PPI supports the disinflation narrative. Markets use it to calibrate Fed rate cut expectations.',
+      'Jobless Claims': 'Weekly jobless claims are the most timely read on US labor market health. A spike above 250K would signal cracks forming in employment — raising recession fears. Low claims confirm labor market resilience. This data point rarely moves markets dramatically unless it shows an unexpected trend shift.',
+    };
+
+    var summary='';
+    for(var key in ECO_KNOWN){
+      if(name.indexOf(key)!==-1){ summary=ECO_KNOWN[key]; break; }
+    }
+    if(!summary) summary=(description||'This economic release provides important data on the health of the US economy.')+' Markets will react based on whether the data beats or misses consensus expectations and what it implies for Federal Reserve policy and interest rates.';
+    text=summary;
   }
-  try{
-    var response=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'anthropic-version':'2023-06-01',
-        'anthropic-dangerous-direct-browser-access':'true'
-      },
-      body:JSON.stringify({
-        model:'claude-sonnet-4-6',
-        max_tokens:300,
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    var data=await response.json();
-    var text=data.content&&data.content[0]?data.content[0].text:null;
-    var el=document.getElementById('aiSummary');
-    if(el&&text) el.innerHTML='<div class="m-text">'+text+'</div>';
-    else if(el) el.innerHTML='<div class="m-text" style="color:var(--muted)">Summary unavailable.</div>';
-  }catch(e){
-    var el=document.getElementById('aiSummary');
-    if(el) el.innerHTML='<div class="m-text" style="color:var(--muted)">Summary unavailable.</div>';
-  }
+
+  el.innerHTML='<div class="m-text" style="line-height:1.75">'+text+'</div>';
 }
 
 document.getElementById('tickerInput').addEventListener('keydown',function(e){if(e.key==='Enter')addTicker();});
